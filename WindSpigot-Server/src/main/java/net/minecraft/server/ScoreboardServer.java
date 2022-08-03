@@ -1,10 +1,6 @@
 package net.minecraft.server;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -72,7 +68,7 @@ public class ScoreboardServer extends Scoreboard {
 		if (super.addPlayerToTeam(s, s1)) {
 			ScoreboardTeam scoreboardteam = this.getTeam(s1);
 
-			this.sendAll(new PacketPlayOutScoreboardTeam(scoreboardteam, Arrays.asList(new String[] { s }), 3));
+			this.sendAll(new PacketPlayOutScoreboardTeam(scoreboardteam, Collections.singletonList(s), 3));
 			this.b();
 			return true;
 		} else {
@@ -83,7 +79,7 @@ public class ScoreboardServer extends Scoreboard {
 	@Override
 	public void removePlayerFromTeam(String s, ScoreboardTeam scoreboardteam) {
 		super.removePlayerFromTeam(s, scoreboardteam);
-		this.sendAll(new PacketPlayOutScoreboardTeam(scoreboardteam, Arrays.asList(new String[] { s }), 4));
+		this.sendAll(new PacketPlayOutScoreboardTeam(scoreboardteam, Collections.singletonList(s), 4));
 		this.b();
 	}
 
@@ -161,18 +157,15 @@ public class ScoreboardServer extends Scoreboard {
 	}
 
 	public void e(ScoreboardObjective scoreboardobjective) {
-		List list = this.getScoreboardScorePacketsForObjective(scoreboardobjective);
-		Iterator iterator = this.a.getPlayerList().v().iterator();
+		List<Packet<PacketListenerPlayOut>> list = this.getScoreboardScorePacketsForObjective(scoreboardobjective);
 
-		while (iterator.hasNext()) {
-			EntityPlayer entityplayer = (EntityPlayer) iterator.next();
+		for (EntityPlayer entityplayer : this.a.getPlayerList().v()) {
 			if (entityplayer.getBukkitEntity().getScoreboard().getHandle() != this) {
 				continue; // CraftBukkit - Only players on this board
 			}
-			Iterator iterator1 = list.iterator();
 
-			while (iterator1.hasNext()) {
-				Packet packet = (Packet) iterator1.next();
+			for (Packet<PacketListenerPlayOut> packetListenerPlayOutPacket : list) {
+				Packet packet = packetListenerPlayOutPacket;
 
 				entityplayer.playerConnection.sendPacket(packet);
 			}
@@ -182,7 +175,7 @@ public class ScoreboardServer extends Scoreboard {
 	}
 
 	public List<Packet> f(ScoreboardObjective scoreboardobjective) {
-		ArrayList arraylist = Lists.newArrayList();
+		ArrayList<Packet> arraylist = Lists.newArrayList();
 
 		arraylist.add(new PacketPlayOutScoreboardObjective(scoreboardobjective, 1));
 
@@ -196,19 +189,14 @@ public class ScoreboardServer extends Scoreboard {
 	}
 
 	public void g(ScoreboardObjective scoreboardobjective) {
-		List list = this.f(scoreboardobjective);
-		Iterator iterator = this.a.getPlayerList().v().iterator();
+		List<Packet> list = this.f(scoreboardobjective);
 
-		while (iterator.hasNext()) {
-			EntityPlayer entityplayer = (EntityPlayer) iterator.next();
+		for (EntityPlayer entityplayer : this.a.getPlayerList().v()) {
 			if (entityplayer.getBukkitEntity().getScoreboard().getHandle() != this) {
 				continue; // CraftBukkit - Only players on this board
 			}
-			Iterator iterator1 = list.iterator();
 
-			while (iterator1.hasNext()) {
-				Packet packet = (Packet) iterator1.next();
-
+			for (Packet packet : list) {
 				entityplayer.playerConnection.sendPacket(packet);
 			}
 		}

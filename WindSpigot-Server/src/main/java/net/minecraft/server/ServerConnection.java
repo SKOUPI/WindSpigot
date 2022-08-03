@@ -95,7 +95,7 @@ public class ServerConnection {
 
 	public void a(InetAddress ip, int port) throws IOException {
 		synchronized (this.getListeningChannels()) {
-			Class<? extends ServerChannel> channel = null;
+			Class<? extends ServerChannel> channel;
 			final int workerThreadCount = Runtime.getRuntime().availableProcessors();
 
 			{

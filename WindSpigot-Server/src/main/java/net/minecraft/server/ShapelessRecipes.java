@@ -59,7 +59,7 @@ public class ShapelessRecipes implements IRecipe {
 
 	@Override
 	public boolean a(InventoryCrafting inventorycrafting, World world) {
-		ArrayList arraylist = Lists.newArrayList(this.ingredients);
+		ArrayList<ItemStack> arraylist = Lists.newArrayList(this.ingredients);
 
 		for (int i = 0; i < inventorycrafting.h(); ++i) {
 			for (int j = 0; j < inventorycrafting.i(); ++j) {
@@ -67,11 +67,8 @@ public class ShapelessRecipes implements IRecipe {
 
 				if (itemstack != null) {
 					boolean flag = false;
-					Iterator iterator = arraylist.iterator();
 
-					while (iterator.hasNext()) {
-						ItemStack itemstack1 = (ItemStack) iterator.next();
-
+					for (ItemStack itemstack1 : arraylist) {
 						if (itemstack.getItem() == itemstack1.getItem()
 								&& (itemstack1.getData() == 32767 || itemstack.getData() == itemstack1.getData())) {
 							flag = true;

@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 // CraftBukkit start
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -16,7 +17,7 @@ public class TileEntityDispenser extends TileEntityContainer implements IInvento
 	protected String a;
 
 	// CraftBukkit start - add fields and methods
-	public List<HumanEntity> transaction = new java.util.ArrayList<HumanEntity>();
+	public List<HumanEntity> transaction = new java.util.ArrayList<>();
 	private int maxStack = MAX_STACK;
 
 	@Override
@@ -156,7 +157,7 @@ public class TileEntityDispenser extends TileEntityContainer implements IInvento
 			NBTTagCompound nbttagcompound1 = nbttaglist.get(i);
 			int j = nbttagcompound1.getByte("Slot") & 255;
 
-			if (j >= 0 && j < this.items.length) {
+			if (j < this.items.length) {
 				this.items[j] = ItemStack.createStack(nbttagcompound1);
 			}
 		}
@@ -196,9 +197,7 @@ public class TileEntityDispenser extends TileEntityContainer implements IInvento
 
 	@Override
 	public boolean a(EntityHuman entityhuman) {
-		return this.world.getTileEntity(this.position) != this ? false
-				: entityhuman.e(this.position.getX() + 0.5D, this.position.getY() + 0.5D,
-						this.position.getZ() + 0.5D) <= 64.0D;
+		return this.world.getTileEntity(this.position) == this && entityhuman.e(this.position.getX() + 0.5D, this.position.getY() + 0.5D, this.position.getZ() + 0.5D) <= 64.0D;
 	}
 
 	@Override
@@ -240,9 +239,7 @@ public class TileEntityDispenser extends TileEntityContainer implements IInvento
 
 	@Override
 	public void l() {
-		for (int i = 0; i < this.items.length; ++i) {
-			this.items[i] = null;
-		}
+		Arrays.fill(this.items, null);
 
 	}
 }

@@ -16,8 +16,8 @@ public abstract class TileEntity {
 
 	public Timing tickTimer = SpigotTimings.getTileEntityTimings(this); // Spigot
 	private static final Logger a = LogManager.getLogger();
-	private static Map<String, Class<? extends TileEntity>> f = Maps.newHashMap();
-	private static Map<Class<? extends TileEntity>, String> g = Maps.newHashMap();
+	private static final Map<String, Class<? extends TileEntity>> f = Maps.newHashMap();
+	private static final Map<Class<? extends TileEntity>, String> g = Maps.newHashMap();
 	protected World world;
 	protected BlockPosition position;
 	protected boolean d;
@@ -156,13 +156,12 @@ public abstract class TileEntity {
 
 	public void a(CrashReportSystemDetails crashreportsystemdetails) {
 		crashreportsystemdetails.a("Name", new Callable() {
-			public String a() throws Exception {
-				return TileEntity.g.get(TileEntity.this.getClass()) + " // "
-						+ TileEntity.this.getClass().getCanonicalName();
+			public String a() {
+				return TileEntity.g.get(TileEntity.this.getClass()) + " // " + TileEntity.this.getClass().getCanonicalName();
 			}
 
 			@Override
-			public Object call() throws Exception {
+			public Object call() {
 				return this.a();
 			}
 		});
@@ -174,19 +173,18 @@ public abstract class TileEntity {
 			}
 			// PaperSpigot end
 			crashreportsystemdetails.a("Actual block type", new Callable() {
-				public String a() throws Exception {
+				public String a() {
 					int i = Block.getId(TileEntity.this.world.getType(TileEntity.this.position).getBlock());
 
 					try {
-						return String.format("ID #%d (%s // %s)", new Object[] { Integer.valueOf(i),
-								Block.getById(i).a(), Block.getById(i).getClass().getCanonicalName() });
+						return String.format("ID #%d (%s // %s)", i, Block.getById(i).a(), Block.getById(i).getClass().getCanonicalName());
 					} catch (Throwable throwable) {
 						return "ID #" + i;
 					}
 				}
 
 				@Override
-				public Object call() throws Exception {
+				public Object call() {
 					return this.a();
 				}
 			});
@@ -200,7 +198,7 @@ public abstract class TileEntity {
 					} else {
 						String s = String.format("%4s", new Object[] { Integer.toBinaryString(i) }).replace(" ", "0");
 
-						return String.format("%1$d / 0x%1$X / 0b%2$s", new Object[] { Integer.valueOf(i), s });
+						return String.format("%1$d / 0x%1$X / 0b%2$s", i, s);
 					}
 				}
 

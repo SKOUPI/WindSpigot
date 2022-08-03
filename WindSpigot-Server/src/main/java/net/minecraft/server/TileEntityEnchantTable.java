@@ -15,7 +15,7 @@ public class TileEntityEnchantTable extends TileEntity implements IUpdatePlayerL
 	public float l;
 	public float m;
 	public float n;
-	private static Random o = new FastRandom();
+	private static final Random o = new FastRandom();
 	private String p;
 
 	public TileEntityEnchantTable() {
@@ -119,7 +119,7 @@ public class TileEntityEnchantTable extends TileEntity implements IUpdatePlayerL
 	@Override
 	public IChatBaseComponent getScoreboardDisplayName() {
 		return this.hasCustomName() ? new ChatComponentText(this.getName())
-				: new ChatMessage(this.getName(), new Object[0]);
+				: new ChatMessage(this.getName());
 	}
 
 	@Override

@@ -65,6 +65,9 @@ public class TileEntityHopper extends TileEntityContainer implements IHopper, IU
 
 		this.g = nbttagcompound.getInt("TransferCooldown");
 
+
+
+
 		for (int i = 0; i < nbttaglist.size(); ++i) {
 			NBTTagCompound nbttagcompound1 = nbttaglist.get(i);
 			byte b0 = nbttagcompound1.getByte("Slot");

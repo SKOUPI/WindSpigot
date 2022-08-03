@@ -21,9 +21,8 @@ public class TileEntityBeacon extends TileEntityContainer implements IUpdatePlay
 			{ MobEffectList.RESISTANCE, MobEffectList.JUMP }, { MobEffectList.INCREASE_DAMAGE },
 			{ MobEffectList.REGENERATION } };
 	// CraftBukkit start - add fields and methods
-	public List<HumanEntity> transaction = new java.util.ArrayList<HumanEntity>();
-	// private final List<TileEntityBeacon.BeaconColorTracker> f =
-	// Lists.newArrayList();
+	public List<HumanEntity> transaction = new java.util.ArrayList<>();
+
 	private boolean i;
 	private int j = -1;
 	private int k;
@@ -316,9 +315,8 @@ public class TileEntityBeacon extends TileEntityContainer implements IUpdatePlay
 
 	@Override
 	public boolean a(EntityHuman entityhuman) {
-		return this.world.getTileEntity(this.position) != this ? false
-				: entityhuman.e(this.position.getX() + 0.5D, this.position.getY() + 0.5D,
-						this.position.getZ() + 0.5D) <= 64.0D;
+		return this.world.getTileEntity(this.position) == this && entityhuman.e(this.position.getX() + 0.5D, this.position.getY() + 0.5D,
+				this.position.getZ() + 0.5D) <= 64.0D;
 	}
 
 	@Override
@@ -350,13 +348,10 @@ public class TileEntityBeacon extends TileEntityContainer implements IUpdatePlay
 		switch (i) {
 		case 0:
 			return getLevel();
-
 		case 1:
 			return this.k;
-
 		case 2:
 			return this.l;
-
 		default:
 			return 0;
 		}
@@ -399,22 +394,4 @@ public class TileEntityBeacon extends TileEntityContainer implements IUpdatePlay
 		}
 	}
 
-//    public static class BeaconColorTracker {
-//
-//        private final float[] a;
-//        private int b;
-//
-//        public BeaconColorTracker(float[] afloat) {
-//            this.a = afloat;
-//            this.b = 1;
-//        }
-//
-//        protected void a() {
-//            ++this.b;
-//        }
-//
-//        public float[] b() {
-//            return this.a;
-//        }
-//    }
 }

@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public class SecondaryWorldServer extends WorldServer {
 
-	private WorldServer a;
+	private final WorldServer a;
 
 	// CraftBukkit start - Add WorldData, Environment and ChunkGenerator arguments
 	public SecondaryWorldServer(MinecraftServer minecraftserver, IDataManager idatamanager, int i,

@@ -4,8 +4,7 @@ import com.google.gson.JsonParseException;
 
 public class TileEntitySign extends TileEntity {
 
-	public final IChatBaseComponent[] lines = new IChatBaseComponent[] { new ChatComponentText(""),
-			new ChatComponentText(""), new ChatComponentText(""), new ChatComponentText("") };
+	public final IChatBaseComponent[] lines = new IChatBaseComponent[] { new ChatComponentText(""), new ChatComponentText(""), new ChatComponentText(""), new ChatComponentText("") };
 	public int f = -1;
 	public boolean isEditable = true;
 	private EntityHuman h;
@@ -111,8 +110,7 @@ public class TileEntitySign extends TileEntity {
 				// CraftBukkit end
 
 				try {
-					this.lines[i] = ChatComponentUtils.filterForDisplay(icommandlistener, ichatbasecomponent,
-							(Entity) null);
+					this.lines[i] = ChatComponentUtils.filterForDisplay(icommandlistener, ichatbasecomponent, null);
 				} catch (CommandException commandexception) {
 					this.lines[i] = ichatbasecomponent;
 				}
