@@ -155,6 +155,11 @@ public class CreatureSpawnEvent extends EntitySpawnEvent {
 		 */
 		CUSTOM,
 		/**
+		 * When a creature is spawned by mob stacker respawn
+		 */
+		STACK,
+
+		/**
 		 * When an entity is missing a SpawnReason
 		 */
 		DEFAULT
