@@ -44,7 +44,7 @@ public class PacketDataSerializer extends ByteBuf {
          * it's still much better than the old system of having no limit,
          * which would leave the server vulnerable to packets up to 2 GIGABYTES in size.
          */
-        this.allowLargePackets = CompatHacks.hasProtocolSupport();
+        this.allowLargePackets = CompatHacks.getInstance().hasProtocolSupport();
         // TacoSpigot end
         this.a = bytebuf;
     }
@@ -188,7 +188,7 @@ public class PacketDataSerializer extends ByteBuf {
         } else {
             this.readerIndex(i);
             try {
-                return NBTCompressedStreamTools.a((DataInput) (new ByteBufInputStream(this)), new NBTReadLimiter(50000L));
+                return NBTCompressedStreamTools.a(new ByteBufInputStream(this), new NBTReadLimiter(50000L));
             } catch (IOException ioexception) {
                 throw new EncoderException(ioexception);
             }
