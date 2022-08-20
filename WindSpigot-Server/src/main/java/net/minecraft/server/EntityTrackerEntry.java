@@ -559,7 +559,9 @@ public class EntityTrackerEntry {
                     this.trackedPlayerMap.put(entityplayer, true); // PaperBukkit
                     Packet packet = this.c();
 
-                    entityplayer.playerConnection.queuePacket(packet);
+                    if (packet instanceof PacketPlayOutSpawnEntityExperienceOrb)
+                        entityplayer.playerConnection.sendPacket(packet);
+                    else entityplayer.playerConnection.queuePacket(packet);
                     if (!this.tracker.getDataWatcher().d()) {
                         entityplayer.playerConnection.queuePacket(new PacketPlayOutEntityMetadata(this.tracker.getId(),
                                 this.tracker.getDataWatcher(), true));

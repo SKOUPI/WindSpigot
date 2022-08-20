@@ -60,7 +60,6 @@ import xyz.sculas.nacho.async.AsyncExplosions;
 import net.openhft.affinity.AffinityLock;
 import ga.windpvp.windspigot.WindSpigot;
 import ga.windpvp.windspigot.config.WindSpigotConfig;
-import ga.windpvp.windspigot.statistics.StatisticsClient;
 import ga.windpvp.windspigot.tickloop.ReentrantIAsyncHandler;
 import ga.windpvp.windspigot.tickloop.TasksPerTick;
 import ga.windpvp.windspigot.world.WorldTickManager;
@@ -653,13 +652,9 @@ public abstract class MinecraftServer extends ReentrantIAsyncHandler<TasksPerTic
 	}
 
 	public void run() {
-		// Don't disable statistics if server failed to start
-		boolean disableStatistics = false;
 		try {
             serverStartTime = getNanos(); // Paper
 			if (this.init()) {
-				//WindSpigot - statistics
-				disableStatistics = true;
 				// WindSpigot start - implement thread affinity
 				if (WindSpigotConfig.threadAffinity) {
 					LOGGER.info(" ");
@@ -771,27 +766,6 @@ public abstract class MinecraftServer extends ReentrantIAsyncHandler<TasksPerTic
 				MinecraftServer.LOGGER.info("Released CPU " + lock.cpuId() + " from server usage.");
 			}
 			// WindSpigot end
-			// WindSpigot start - stop statistics connection
-			Thread statisticsThread = null;
-			if (disableStatistics) {
-				StatisticsClient client = this.getWindSpigot().getClient();
-				if (client != null && client.isConnected) {
-					Runnable runnable = (() -> {
-						try {
-							// Signal that there is one less server
-							client.sendMessage("removed server");
-							// This tells the server to stop listening for messages from this client
-							client.sendMessage(".");
-							client.stop();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					});
-					statisticsThread = new Thread(runnable);
-					statisticsThread.start();
-				}
-			}
-			// WindSpigot end
 			try {
 				org.spigotmc.WatchdogThread.doStop();
 				this.isStopped = true;
@@ -806,13 +780,6 @@ public abstract class MinecraftServer extends ReentrantIAsyncHandler<TasksPerTic
 				}
 				// CraftBukkit end
 				this.z();
-			}
-			// WindSpigot - wait for statistics to finish stopping
-			try {
-				if (this.getWindSpigot().getClient().isConnected) {
-					statisticsThread.join(1500);
-				}
-			} catch (Throwable ignored) {
 			}
 		}
 
