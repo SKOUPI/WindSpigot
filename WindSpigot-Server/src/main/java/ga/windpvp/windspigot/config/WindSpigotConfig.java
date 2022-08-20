@@ -516,12 +516,6 @@ public class WindSpigotConfig {
 		patchProtocolLib = getBoolean("settings.patch-protocollib", true);
 	}
 
-	public static boolean stopNotifyBungee;
-
-	private static void stopNotifyBungee() {
-		stopNotifyBungee = getBoolean("settings.stop-notify-bungee", false);
-	}
-
 	public static boolean checkForMalware;
 
 	private static void antiMalware() {
