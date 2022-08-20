@@ -22,7 +22,6 @@ import it.unimi.dsi.fastutil.objects.Reference2BooleanOpenHashMap;
 // WindSpigot - sendPacket methods have been replaced with the queuePacket method
 public class EntityTrackerEntry {
 
-    private static final Logger p = LogManager.getLogger();
     public Entity tracker;
 
     public Entity getTracker() {
@@ -86,9 +85,9 @@ public class EntityTrackerEntry {
     public Set<EntityPlayer> trackedPlayers = trackedPlayerMap.keySet();
     // PaperSpigot end
 
-    private List<EntityPlayer> toRemove = new ArrayList<>();
-    private EntityTracker entityTracker;
-    private int addRemoveRate;
+    private final List<EntityPlayer> toRemove = new ArrayList<>();
+    private final EntityTracker entityTracker;
+    private final int addRemoveRate;
     private int addRemoveCooldown;
     private boolean withinNoTrack = false;
 
@@ -126,12 +125,11 @@ public class EntityTrackerEntry {
         // WindSpigot Start - get the entity's tracker from it's dimension
         CraftServer server = (CraftServer) Bukkit.getServer();
         WorldServer worldServer = server.getServer().getWorldServer(entity.dimension);
-        EntityTracker entityTracker = worldServer.getTracker();
         // WindSpigot End
 
         // Code from above constructor
 
-        this.entityTracker = entityTracker;
+        this.entityTracker = worldServer.getTracker();
         this.tracker = entity;
         this.b = b;
         this.c = c;
@@ -240,7 +238,7 @@ public class EntityTrackerEntry {
         return noTrackDistanceSqrd != 0 && xDistSqrd <= noTrackDistanceSqrd && zDistSqrd <= noTrackDistanceSqrd;
     }
 
-    private final Consumer<EntityPlayer> addNearPlayersConsumer = entityPlayer -> updatePlayer(entityPlayer);
+    private final Consumer<EntityPlayer> addNearPlayersConsumer = this::updatePlayer;
 
     /**
      * sends velocity, Location, rotation, and riding info.
@@ -267,17 +265,15 @@ public class EntityTrackerEntry {
 
             if (itemstack != null && itemstack.getItem() instanceof ItemWorldMap) { // Paper - moved back up
                 WorldMap worldmap = Items.FILLED_MAP.getSavedMap(itemstack, this.tracker.world);
-                Iterator iterator = this.trackedPlayers.iterator(); // CraftBukkit
+                // CraftBukkit
 
-                while (iterator.hasNext()) {
-                    EntityHuman entityhuman = (EntityHuman) iterator.next();
-                    EntityPlayer entityplayer = (EntityPlayer) entityhuman;
+                for (EntityPlayer trackedPlayer : this.trackedPlayers) {
 
-                    worldmap.a(entityplayer, itemstack);
-                    Packet packet = Items.FILLED_MAP.c(itemstack, this.tracker.world, entityplayer);
+                    worldmap.a(trackedPlayer, itemstack);
+                    Packet packet = Items.FILLED_MAP.c(itemstack, this.tracker.world, trackedPlayer);
 
                     if (packet != null) {
-                        entityplayer.playerConnection.queuePacket(packet);
+                        trackedPlayer.playerConnection.queuePacket(packet);
                     }
                 }
             }
@@ -465,7 +461,7 @@ public class EntityTrackerEntry {
         if (this.tracker instanceof EntityLiving) {
             AttributeMapServer attributemapserver = (AttributeMapServer) ((EntityLiving) this.tracker)
                     .getAttributeMap();
-            Set set = attributemapserver.getAttributes();
+            Set<AttributeInstance> set = attributemapserver.getAttributes();
 
             if (!set.isEmpty()) {
                 // CraftBukkit start - Send scaled max health
@@ -482,23 +478,14 @@ public class EntityTrackerEntry {
     }
 
     public void broadcast(Packet packet) {
-        Iterator iterator = this.trackedPlayers.iterator();
-
-        while (iterator.hasNext()) {
-            EntityPlayer entityplayer = (EntityPlayer) iterator.next();
-
+        for (EntityPlayer entityplayer : this.trackedPlayers) {
             entityplayer.playerConnection.sendPacket(packet);
         }
-
     }
 
     // WindSpigot start
     protected void broadcastInternal(Packet<?> packet) {
-        Iterator iterator = this.trackedPlayers.iterator();
-
-        while (iterator.hasNext()) {
-            EntityPlayer entityplayer = (EntityPlayer) iterator.next();
-
+        for (EntityPlayer entityplayer : this.trackedPlayers) {
             entityplayer.playerConnection.queuePacket(packet);
         }
     }
@@ -522,14 +509,9 @@ public class EntityTrackerEntry {
     // WindSpigot end
 
     public void a() {
-        Iterator iterator = this.trackedPlayers.iterator();
-
-        while (iterator.hasNext()) {
-            EntityPlayer entityplayer = (EntityPlayer) iterator.next();
-
+        for (EntityPlayer entityplayer : this.trackedPlayers) {
             entityplayer.d(this.tracker);
         }
-
     }
 
     public void a(EntityPlayer entityplayer) {
@@ -797,7 +779,7 @@ public class EntityTrackerEntry {
                 } else if (this.tracker instanceof EntityExperienceOrb) {
                     return new PacketPlayOutSpawnEntityExperienceOrb((EntityExperienceOrb) this.tracker);
                 } else {
-                    throw new IllegalArgumentException("Don\'t know how to add " + this.tracker.getClass() + "!");
+                    throw new IllegalArgumentException("Don't know how to add " + this.tracker.getClass() + "!");
                 }
             }
         }
