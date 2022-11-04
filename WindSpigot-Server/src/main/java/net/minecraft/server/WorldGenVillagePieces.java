@@ -26,7 +26,7 @@ public class WorldGenVillagePieces {
 	}
 
 	public static List<WorldGenVillagePieces.WorldGenVillagePieceWeight> a(Random random, int i) {
-		ArrayList arraylist = Lists.newArrayList();
+		ArrayList<WorldGenVillagePieces.WorldGenVillagePieceWeight> arraylist = Lists.newArrayList();
 
 		arraylist.add(new WorldGenVillagePieces.WorldGenVillagePieceWeight(
 				WorldGenVillagePieces.WorldGenVillageHouse.class, 4, MathHelper.nextInt(random, 2 + i, 4 + i * 2)));
@@ -46,13 +46,8 @@ public class WorldGenVillagePieces {
 				WorldGenVillagePieces.WorldGenVillageBlacksmith.class, 15, MathHelper.nextInt(random, 0, 1 + i)));
 		arraylist.add(new WorldGenVillagePieces.WorldGenVillagePieceWeight(
 				WorldGenVillagePieces.WorldGenVillageHouse2.class, 8, MathHelper.nextInt(random, 0 + i, 3 + i * 2)));
-		Iterator iterator = arraylist.iterator();
 
-		while (iterator.hasNext()) {
-			if (((WorldGenVillagePieces.WorldGenVillagePieceWeight) iterator.next()).d == 0) {
-				iterator.remove();
-			}
-		}
+		arraylist.removeIf(o -> o.d == 0);
 
 		return arraylist;
 	}
@@ -560,23 +555,7 @@ public class WorldGenVillagePieces {
 	public static class WorldGenVillageBlacksmith extends WorldGenVillagePieces.WorldGenVillagePiece {
 
 		private static final List<StructurePieceTreasure> a = Lists
-				.newArrayList(new StructurePieceTreasure[] { new StructurePieceTreasure(Items.DIAMOND, 0, 1, 3, 3),
-						new StructurePieceTreasure(Items.IRON_INGOT, 0, 1, 5, 10),
-						new StructurePieceTreasure(Items.GOLD_INGOT, 0, 1, 3, 5),
-						new StructurePieceTreasure(Items.BREAD, 0, 1, 3, 15),
-						new StructurePieceTreasure(Items.APPLE, 0, 1, 3, 15),
-						new StructurePieceTreasure(Items.IRON_PICKAXE, 0, 1, 1, 5),
-						new StructurePieceTreasure(Items.IRON_SWORD, 0, 1, 1, 5),
-						new StructurePieceTreasure(Items.IRON_CHESTPLATE, 0, 1, 1, 5),
-						new StructurePieceTreasure(Items.IRON_HELMET, 0, 1, 1, 5),
-						new StructurePieceTreasure(Items.IRON_LEGGINGS, 0, 1, 1, 5),
-						new StructurePieceTreasure(Items.IRON_BOOTS, 0, 1, 1, 5),
-						new StructurePieceTreasure(Item.getItemOf(Blocks.OBSIDIAN), 0, 3, 7, 5),
-						new StructurePieceTreasure(Item.getItemOf(Blocks.SAPLING), 0, 3, 7, 5),
-						new StructurePieceTreasure(Items.SADDLE, 0, 1, 1, 3),
-						new StructurePieceTreasure(Items.IRON_HORSE_ARMOR, 0, 1, 1, 1),
-						new StructurePieceTreasure(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 1),
-						new StructurePieceTreasure(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 1) });
+				.newArrayList(new StructurePieceTreasure(Items.DIAMOND, 0, 1, 3, 3), new StructurePieceTreasure(Items.IRON_INGOT, 0, 1, 5, 10), new StructurePieceTreasure(Items.GOLD_INGOT, 0, 1, 3, 5), new StructurePieceTreasure(Items.BREAD, 0, 1, 3, 15), new StructurePieceTreasure(Items.APPLE, 0, 1, 3, 15), new StructurePieceTreasure(Items.IRON_PICKAXE, 0, 1, 1, 5), new StructurePieceTreasure(Items.IRON_SWORD, 0, 1, 1, 5), new StructurePieceTreasure(Items.IRON_CHESTPLATE, 0, 1, 1, 5), new StructurePieceTreasure(Items.IRON_HELMET, 0, 1, 1, 5), new StructurePieceTreasure(Items.IRON_LEGGINGS, 0, 1, 1, 5), new StructurePieceTreasure(Items.IRON_BOOTS, 0, 1, 1, 5), new StructurePieceTreasure(Item.getItemOf(Blocks.OBSIDIAN), 0, 3, 7, 5), new StructurePieceTreasure(Item.getItemOf(Blocks.SAPLING), 0, 3, 7, 5), new StructurePieceTreasure(Items.SADDLE, 0, 1, 1, 3), new StructurePieceTreasure(Items.IRON_HORSE_ARMOR, 0, 1, 1, 1), new StructurePieceTreasure(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 1), new StructurePieceTreasure(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 1));
 		private boolean b;
 
 		public WorldGenVillageBlacksmith() {

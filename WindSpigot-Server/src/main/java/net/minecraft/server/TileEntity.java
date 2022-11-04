@@ -5,6 +5,7 @@ import java.util.concurrent.Callable;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.bukkit.Material;
 import org.bukkit.inventory.InventoryHolder; // CraftBukkit
 
 import com.google.common.collect.Maps;

@@ -155,20 +155,10 @@ public class WorldGenRegistration {
 		private boolean g;
 		private boolean h;
 		private static final List<StructurePieceTreasure> i = Lists
-				.newArrayList(new StructurePieceTreasure[] { new StructurePieceTreasure(Items.DIAMOND, 0, 1, 3, 3),
-						new StructurePieceTreasure(Items.IRON_INGOT, 0, 1, 5, 10),
-						new StructurePieceTreasure(Items.GOLD_INGOT, 0, 2, 7, 15),
-						new StructurePieceTreasure(Items.EMERALD, 0, 1, 3, 2),
-						new StructurePieceTreasure(Items.BONE, 0, 4, 6, 20),
-						new StructurePieceTreasure(Items.ROTTEN_FLESH, 0, 3, 7, 16),
-						new StructurePieceTreasure(Items.SADDLE, 0, 1, 1, 3),
-						new StructurePieceTreasure(Items.IRON_HORSE_ARMOR, 0, 1, 1, 1),
-						new StructurePieceTreasure(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 1),
-						new StructurePieceTreasure(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 1) });
+				.newArrayList(new StructurePieceTreasure(Items.DIAMOND, 0, 1, 3, 3), new StructurePieceTreasure(Items.IRON_INGOT, 0, 1, 5, 10), new StructurePieceTreasure(Items.GOLD_INGOT, 0, 2, 7, 15), new StructurePieceTreasure(Items.EMERALD, 0, 1, 3, 2), new StructurePieceTreasure(Items.BONE, 0, 4, 6, 20), new StructurePieceTreasure(Items.ROTTEN_FLESH, 0, 3, 7, 16), new StructurePieceTreasure(Items.SADDLE, 0, 1, 1, 3), new StructurePieceTreasure(Items.IRON_HORSE_ARMOR, 0, 1, 1, 1), new StructurePieceTreasure(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 1), new StructurePieceTreasure(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 1));
 		private static final List<StructurePieceTreasure> j = Lists
-				.newArrayList(new StructurePieceTreasure[] { new StructurePieceTreasure(Items.ARROW, 0, 2, 7, 30) });
-		private static WorldGenRegistration.WorldGenJungleTemple.WorldGenJungleTemple$WorldGenJungleTemplePiece k = new WorldGenRegistration.WorldGenJungleTemple.WorldGenJungleTemple$WorldGenJungleTemplePiece(
-				(WorldGenRegistration.SyntheticClass_1) null);
+				.newArrayList(new StructurePieceTreasure(Items.ARROW, 0, 2, 7, 30));
+		private static WorldGenRegistration.WorldGenJungleTemple.WorldGenJungleTemple$WorldGenJungleTemplePiece k = new WorldGenRegistration.WorldGenJungleTemple.WorldGenJungleTemple$WorldGenJungleTemplePiece(null);
 
 		public WorldGenJungleTemple() {
 		}
@@ -348,9 +338,9 @@ public class WorldGenRegistration {
 						.set(BlockTripwireHook.ATTACHED, true), 1, -3, 8, structureboundingbox);
 				this.a(world, Blocks.TRIPWIRE_HOOK.fromLegacyData(this.a(Blocks.TRIPWIRE_HOOK, EnumDirection.WEST.b()))
 						.set(BlockTripwireHook.ATTACHED, true), 4, -3, 8, structureboundingbox);
-				this.a(world, Blocks.TRIPWIRE.getBlockData().set(BlockTripwire.ATTACHED, Boolean.valueOf(true)), 2, -3,
+				this.a(world, Blocks.TRIPWIRE.getBlockData().set(BlockTripwire.ATTACHED, Boolean.TRUE), 2, -3,
 						8, structureboundingbox);
-				this.a(world, Blocks.TRIPWIRE.getBlockData().set(BlockTripwire.ATTACHED, Boolean.valueOf(true)), 3, -3,
+				this.a(world, Blocks.TRIPWIRE.getBlockData().set(BlockTripwire.ATTACHED, Boolean.TRUE), 3, -3,
 						8, structureboundingbox);
 				this.a(world, Blocks.REDSTONE_WIRE.getBlockData(), 5, -3, 7, structureboundingbox);
 				this.a(world, Blocks.REDSTONE_WIRE.getBlockData(), 5, -3, 6, structureboundingbox);
@@ -371,11 +361,11 @@ public class WorldGenRegistration {
 						.set(BlockTripwireHook.ATTACHED, true), 7, -3, 1, structureboundingbox);
 				this.a(world, Blocks.TRIPWIRE_HOOK.fromLegacyData(this.a(Blocks.TRIPWIRE_HOOK, EnumDirection.SOUTH.b()))
 						.set(BlockTripwireHook.ATTACHED, true), 7, -3, 5, structureboundingbox);
-				this.a(world, Blocks.TRIPWIRE.getBlockData().set(BlockTripwire.ATTACHED, Boolean.valueOf(true)), 7, -3,
+				this.a(world, Blocks.TRIPWIRE.getBlockData().set(BlockTripwire.ATTACHED, true), 7, -3,
 						2, structureboundingbox);
-				this.a(world, Blocks.TRIPWIRE.getBlockData().set(BlockTripwire.ATTACHED, Boolean.valueOf(true)), 7, -3,
+				this.a(world, Blocks.TRIPWIRE.getBlockData().set(BlockTripwire.ATTACHED, true), 7, -3,
 						3, structureboundingbox);
-				this.a(world, Blocks.TRIPWIRE.getBlockData().set(BlockTripwire.ATTACHED, Boolean.valueOf(true)), 7, -3,
+				this.a(world, Blocks.TRIPWIRE.getBlockData().set(BlockTripwire.ATTACHED, true), 7, -3,
 						4, structureboundingbox);
 				this.a(world, Blocks.REDSTONE_WIRE.getBlockData(), 8, -3, 6, structureboundingbox);
 				this.a(world, Blocks.REDSTONE_WIRE.getBlockData(), 9, -3, 6, structureboundingbox);
@@ -391,8 +381,7 @@ public class WorldGenRegistration {
 				this.a(world, Blocks.VINE.fromLegacyData(15), 8, -2, 3, structureboundingbox);
 				if (!this.e) {
 					this.e = this.a(world, structureboundingbox, random, 8, -3, 3,
-							StructurePieceTreasure.a(WorldGenRegistration.WorldGenJungleTemple.i,
-									new StructurePieceTreasure[] { Items.ENCHANTED_BOOK.b(random) }),
+							StructurePieceTreasure.a(WorldGenRegistration.WorldGenJungleTemple.i, Items.ENCHANTED_BOOK.b(random)),
 							2 + random.nextInt(5));
 				}
 
@@ -443,8 +432,7 @@ public class WorldGenRegistration {
 						10, -2, 10, structureboundingbox);
 				if (!this.f) {
 					this.f = this.a(world, structureboundingbox, random, 9, -3, 10,
-							StructurePieceTreasure.a(WorldGenRegistration.WorldGenJungleTemple.i,
-									new StructurePieceTreasure[] { Items.ENCHANTED_BOOK.b(random) }),
+							StructurePieceTreasure.a(WorldGenRegistration.WorldGenJungleTemple.i, Items.ENCHANTED_BOOK.b(random)),
 							2 + random.nextInt(5));
 				}
 
@@ -478,16 +466,7 @@ public class WorldGenRegistration {
 
 		private boolean[] e = new boolean[4];
 		private static final List<StructurePieceTreasure> f = Lists
-				.newArrayList(new StructurePieceTreasure[] { new StructurePieceTreasure(Items.DIAMOND, 0, 1, 3, 3),
-						new StructurePieceTreasure(Items.IRON_INGOT, 0, 1, 5, 10),
-						new StructurePieceTreasure(Items.GOLD_INGOT, 0, 2, 7, 15),
-						new StructurePieceTreasure(Items.EMERALD, 0, 1, 3, 2),
-						new StructurePieceTreasure(Items.BONE, 0, 4, 6, 20),
-						new StructurePieceTreasure(Items.ROTTEN_FLESH, 0, 3, 7, 16),
-						new StructurePieceTreasure(Items.SADDLE, 0, 1, 1, 3),
-						new StructurePieceTreasure(Items.IRON_HORSE_ARMOR, 0, 1, 1, 1),
-						new StructurePieceTreasure(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 1),
-						new StructurePieceTreasure(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 1) });
+				.newArrayList(new StructurePieceTreasure(Items.DIAMOND, 0, 1, 3, 3), new StructurePieceTreasure(Items.IRON_INGOT, 0, 1, 5, 10), new StructurePieceTreasure(Items.GOLD_INGOT, 0, 2, 7, 15), new StructurePieceTreasure(Items.EMERALD, 0, 1, 3, 2), new StructurePieceTreasure(Items.BONE, 0, 4, 6, 20), new StructurePieceTreasure(Items.ROTTEN_FLESH, 0, 3, 7, 16), new StructurePieceTreasure(Items.SADDLE, 0, 1, 1, 3), new StructurePieceTreasure(Items.IRON_HORSE_ARMOR, 0, 1, 1, 1), new StructurePieceTreasure(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 1), new StructurePieceTreasure(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 1));
 
 		public WorldGenPyramidPiece() {
 		}

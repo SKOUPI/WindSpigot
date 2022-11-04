@@ -15,7 +15,7 @@ public interface CreatureSpawner extends BlockState {
 	 * @deprecated In favour of {@link #getSpawnedType()}.
 	 */
 	@Deprecated
-	public CreatureType getCreatureType();
+	CreatureType getCreatureType();
 
 	/**
 	 * Get the spawner's creature type.
@@ -29,7 +29,7 @@ public interface CreatureSpawner extends BlockState {
 	 *
 	 * @param creatureType The creature type.
 	 */
-	public void setSpawnedType(EntityType creatureType);
+	void setSpawnedType(EntityType creatureType);
 
 	/**
 	 * Set the spawner creature type.
@@ -38,7 +38,7 @@ public interface CreatureSpawner extends BlockState {
 	 * @deprecated In favour of {@link #setSpawnedType(EntityType)}.
 	 */
 	@Deprecated
-	public void setCreatureType(CreatureType creatureType);
+	void setCreatureType(CreatureType creatureType);
 
 	/**
 	 * Get the spawner's creature type.
@@ -47,21 +47,21 @@ public interface CreatureSpawner extends BlockState {
 	 * @deprecated Use {@link #getCreatureTypeName()}.
 	 */
 	@Deprecated
-	public String getCreatureTypeId();
+	String getCreatureTypeId();
 
 	/**
 	 * Set the spawner mob type.
 	 *
 	 * @param creatureType The creature type's name.
 	 */
-	public void setCreatureTypeByName(String creatureType);
+	void setCreatureTypeByName(String creatureType);
 
 	/**
 	 * Get the spawner's creature type.
 	 *
 	 * @return The creature type's name.
 	 */
-	public String getCreatureTypeName();
+	String getCreatureTypeName();
 
 	/**
 	 * Set the spawner mob type.
@@ -70,19 +70,40 @@ public interface CreatureSpawner extends BlockState {
 	 * @deprecated Use {@link #setCreatureTypeByName(String)}.
 	 */
 	@Deprecated
-	public void setCreatureTypeId(String creatureType);
+	void setCreatureTypeId(String creatureType);
 
 	/**
 	 * Get the spawner's delay.
 	 *
 	 * @return The delay.
 	 */
-	public int getDelay();
+	int getDelay();
 
 	/**
 	 * Set the spawner's delay.
 	 *
 	 * @param delay The delay.
 	 */
-	public void setDelay(int delay);
+	void setDelay(int delay);
+
+	int getMinDelay();
+	void setMinDelay(int minDelay);
+
+	int getMaxDelay();
+	void setMaxDelay(int maxDelay);
+
+	int getSpawnCount();
+	void setSpawnCount(int spawnCount);
+
+	int getMaxNearbyEntity();
+	void setMaxNearbyEntity(int maxNearbyEntity);
+
+	int getRequiredPlayerRange();
+	void setRequiredPlayerRange(int requiredPlayerRange);
+
+	int getSpawnRange();
+	void setSpawnRange(int spawnRange);
+
+	int getCurse();
+	void setCurse(int Curse);
 }

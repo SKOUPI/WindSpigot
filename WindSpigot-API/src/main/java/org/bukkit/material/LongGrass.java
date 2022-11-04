@@ -7,11 +7,13 @@ import org.bukkit.Material;
  * Represents the different types of long grasses.
  */
 public class LongGrass extends MaterialData {
-	public LongGrass() {
+	public LongGrass ()
+	{
 		super(Material.LONG_GRASS);
 	}
 
-	public LongGrass(GrassSpecies species) {
+	public LongGrass (GrassSpecies species)
+	{
 		this();
 		setSpecies(species);
 	}
@@ -21,11 +23,13 @@ public class LongGrass extends MaterialData {
 	 * @deprecated Magic value
 	 */
 	@Deprecated
-	public LongGrass(final int type) {
+	public LongGrass (final int type)
+	{
 		super(type);
 	}
 
-	public LongGrass(final Material type) {
+	public LongGrass (final Material type)
+	{
 		super(type);
 	}
 
@@ -35,7 +39,8 @@ public class LongGrass extends MaterialData {
 	 * @deprecated Magic value
 	 */
 	@Deprecated
-	public LongGrass(final int type, final byte data) {
+	public LongGrass (final int type, final byte data)
+	{
 		super(type, data);
 	}
 
@@ -45,7 +50,8 @@ public class LongGrass extends MaterialData {
 	 * @deprecated Magic value
 	 */
 	@Deprecated
-	public LongGrass(final Material type, final byte data) {
+	public LongGrass (final Material type, final byte data)
+	{
 		super(type, data);
 	}
 
@@ -54,7 +60,8 @@ public class LongGrass extends MaterialData {
 	 *
 	 * @return GrassSpecies of this grass
 	 */
-	public GrassSpecies getSpecies() {
+	public GrassSpecies getSpecies ()
+	{
 		return GrassSpecies.getByData(getData());
 	}
 
@@ -63,17 +70,20 @@ public class LongGrass extends MaterialData {
 	 *
 	 * @param species New species of this grass
 	 */
-	public void setSpecies(GrassSpecies species) {
+	public void setSpecies (GrassSpecies species)
+	{
 		setData(species.getData());
 	}
 
 	@Override
-	public String toString() {
+	public String toString ()
+	{
 		return getSpecies() + " " + super.toString();
 	}
 
 	@Override
-	public LongGrass clone() {
+	public LongGrass clone ()
+	{
 		return (LongGrass) super.clone();
 	}
 }

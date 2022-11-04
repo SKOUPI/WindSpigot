@@ -11,8 +11,7 @@ import com.google.common.collect.Lists;
 
 public class WorldGenLargeFeature extends StructureGenerator {
 
-	private static final List<BiomeBase> d = Arrays.asList(new BiomeBase[] { BiomeBase.DESERT, BiomeBase.DESERT_HILLS,
-			BiomeBase.JUNGLE, BiomeBase.JUNGLE_HILLS, BiomeBase.SWAMPLAND });
+	private static final List<BiomeBase> d = Arrays.asList(BiomeBase.DESERT, BiomeBase.DESERT_HILLS, BiomeBase.JUNGLE, BiomeBase.JUNGLE_HILLS, BiomeBase.SWAMPLAND);
 	private List<BiomeBase.BiomeMeta> f;
 	private int g;
 	private int h;
@@ -26,13 +25,13 @@ public class WorldGenLargeFeature extends StructureGenerator {
 
 	public WorldGenLargeFeature(Map<String, String> map) {
 		this();
-		Iterator iterator = map.entrySet().iterator();
 
-		while (iterator.hasNext()) {
-			Entry entry = (Entry) iterator.next();
+		for (Entry<String, String> e : map.entrySet())
+		{
 
-			if ("distance".equals((String) entry.getKey())) {
-				this.g = MathHelper.a((String) entry.getValue(), this.g, this.h + 1);
+			if ("distance".equals(e.getKey()))
+			{
+				this.g = MathHelper.a(e.getValue(), this.g, this.h + 1);
 			}
 		}
 
@@ -71,14 +70,10 @@ public class WorldGenLargeFeature extends StructureGenerator {
 				return false;
 			}
 
-			Iterator iterator = WorldGenLargeFeature.d.iterator();
-
-			while (iterator.hasNext()) {
-				BiomeBase biomebase1 = (BiomeBase) iterator.next();
-
-				if (biomebase == biomebase1) {
+			for (BiomeBase biomebase1 : WorldGenLargeFeature.d)
+			{
+				if (biomebase == biomebase1)
 					return true;
-				}
 			}
 		}
 

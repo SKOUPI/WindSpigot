@@ -28,24 +28,6 @@ public class ItemMonsterEgg extends Item {
 			return false;
 		} else {
 			IBlockData iblockdata = world.getType(blockposition);
-
-			if (iblockdata.getBlock() == Blocks.MOB_SPAWNER) {
-				TileEntity tileentity = world.getTileEntity(blockposition);
-
-				if (tileentity instanceof TileEntityMobSpawner) {
-					MobSpawnerAbstract mobspawnerabstract = ((TileEntityMobSpawner) tileentity).getSpawner();
-
-					mobspawnerabstract.setMobName(EntityTypes.b(itemstack.getData()));
-					tileentity.update();
-					world.notify(blockposition);
-					if (!entityhuman.abilities.canInstantlyBuild) {
-						--itemstack.count;
-					}
-
-					return true;
-				}
-			}
-
 			blockposition = blockposition.shift(enumdirection);
 			double d0 = 0.0D;
 
@@ -97,7 +79,7 @@ public class ItemMonsterEgg extends Item {
 
 						if (entity != null) {
 							if (entity instanceof EntityLiving && itemstack.hasName()) {
-								((EntityInsentient) entity).setCustomName(itemstack.getName());
+								entity.setCustomName(itemstack.getName());
 							}
 
 							if (!entityhuman.abilities.canInstantlyBuild) {
@@ -122,7 +104,7 @@ public class ItemMonsterEgg extends Item {
 	public static Entity spawnCreature(World world, int i, double d0, double d1, double d2,
 			org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason spawnReason) {
 		// CraftBukkit end
-		if (!EntityTypes.eggInfo.containsKey(Integer.valueOf(i))) {
+		if (!EntityTypes.eggInfo.containsKey(i)) {
 			return null;
 		} else {
 			Entity entity = null;

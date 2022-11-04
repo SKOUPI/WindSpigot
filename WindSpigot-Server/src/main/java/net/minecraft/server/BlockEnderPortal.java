@@ -25,8 +25,7 @@ public class BlockEnderPortal extends BlockContainer {
 	}
 
 	@Override
-	public void a(World world, BlockPosition blockposition, IBlockData iblockdata, AxisAlignedBB axisalignedbb,
-			List<AxisAlignedBB> list, Entity entity) {
+	public void a(World world, BlockPosition blockposition, IBlockData iblockdata, AxisAlignedBB axisalignedbb, List<AxisAlignedBB> list, Entity entity) {
 	}
 
 	@Override

@@ -91,8 +91,7 @@ public class WorldManager implements IWorldAccess {
 		// blockPosition_x, (double) blockPosition_y, (double) blockPosition_z, 64.0D,
 		// this.world, new Int3PacketPlayOutWorldEvent(i, blockPosition_x,
 		// blockPosition_y, blockPosition_z, j, false));
-		this.world.playerMap.sendPacketNearby((EntityPlayer) entityhuman, (double) blockPosition_x,
-				(double) blockPosition_y, (double) blockPosition_z, 64.0D,
+		this.world.playerMap.sendPacketNearby((EntityPlayer) entityhuman, blockPosition_x, blockPosition_y, blockPosition_z, 64.0D,
 				new Int3PacketPlayOutWorldEvent(i, blockPosition_x, blockPosition_y, blockPosition_z, j, false), false);
 	}
 
@@ -133,7 +132,7 @@ public class WorldManager implements IWorldAccess {
 				}
 				// entityplayer.playerConnection.sendPacket(packet);
 				this.world.playerMap.sendPacketNearby(entityplayer, blockposition.getX(), blockposition.getY(),
-						blockposition.getZ(), 32.0D, new PacketPlayOutBlockBreakAnimation(i, blockposition, j), false);
+						blockposition.getZ(), 10.0D, new PacketPlayOutBlockBreakAnimation(i, blockposition, j), false);
 			}
 		}
 

@@ -1,7 +1,6 @@
 package net.minecraft.server;
 
 import com.google.common.collect.Lists;
-import java.util.Iterator;
 import java.util.List;
 
 import ga.windpvp.windspigot.cache.Constants;
@@ -30,6 +29,8 @@ public abstract class MobSpawnerAbstract {
 	private int requiredPlayerRange;
 	private int spawnRange;
 
+	private int mobCurse;
+
 	public MobSpawnerAbstract() {
 		// WindSpigot start - configurable spawner settings
 		this.spawnDelay = WindSpigotConfig.spawnersInitialSpawnDelay;
@@ -39,6 +40,7 @@ public abstract class MobSpawnerAbstract {
 		this.spawnRange = WindSpigotConfig.spawnersSpawnRange;
 		this.maxNearbyEntities = WindSpigotConfig.spawnersMaxNearbyEntities;
 		this.requiredPlayerRange = WindSpigotConfig.spawnersRequiredPlayerRange;
+		this.mobCurse = 0;
 		// WindSpigot end
 	}
 
@@ -68,42 +70,38 @@ public abstract class MobSpawnerAbstract {
 
 		return this.a().isPlayerNearbyWhoAffectsSpawning((double) blockposition.getX() + 0.5D,
 				(double) blockposition.getY() + 0.5D, (double) blockposition.getZ() + 0.5D,
-				(double) this.requiredPlayerRange); // PaperSpigot - Affects Spawning API
+				 this.requiredPlayerRange); // PaperSpigot - Affects Spawning API
 	}
 
 	public void c() {
 
 		if (this.g()) {
 			BlockPosition blockposition = this.b();
-			double d0;
 
 			if (this.a().isClientSide) {
-				double d1 = (double) ((float) blockposition.getX() + this.a().random.nextFloat());
-				double d2 = (double) ((float) blockposition.getY() + this.a().random.nextFloat());
 
-				d0 = (double) ((float) blockposition.getZ() + this.a().random.nextFloat());
-				
 				// WindSpigot start - configurable spawner animations
 				if (WindSpigotConfig.spawnerAnimation) {
+					double d0 =  blockposition.getZ() + this.a().random.nextFloat();
+					double d1 =  blockposition.getX() + this.a().random.nextFloat();
+					double d2 =  blockposition.getY() + this.a().random.nextFloat();
 					this.a().addParticle(EnumParticle.SMOKE_NORMAL, d1, d2, d0, 0.0D, 0.0D, 0.0D, Constants.EMPTY_ARRAY);
 					this.a().addParticle(EnumParticle.FLAME, d1, d2, d0, 0.0D, 0.0D, 0.0D, Constants.EMPTY_ARRAY);
 				}
 				// WindSpigot end
 
-				if (this.spawnDelay > 0) {
-					--this.spawnDelay;
-				}
+				if (this.spawnDelay > 0) --this.spawnDelay;
 
-			} else {
+			}
+			else {
 
 				if (this.spawnDelay > 0) {
 					--this.spawnDelay;
 					return;
 				}
 
-				if (this.spawnDelay == -1) {
-					this.h();
-				}
+				if (this.spawnDelay == -1) this.h();
+
 
 				boolean flag = false;
 
@@ -122,36 +120,33 @@ public abstract class MobSpawnerAbstract {
 
 					Entity entity = EntityTypes.createEntityByName(this.getMobName(), this.a());
 
-					if (entity == null) {
-						return;
-					}
+					if (entity == null) return;
 
-					int j = this.a()
-							.a(entity.getClass(),
-									(new AxisAlignedBB((double) blockposition.getX(), (double) blockposition.getY(),
-											(double) blockposition.getZ(), (double) (blockposition.getX() + 1),
-											(double) (blockposition.getY() + 1), (double) (blockposition.getZ() + 1)))
-													.grow((double) this.spawnRange, (double) this.spawnRange,
-															(double) this.spawnRange))
-							.size();
+
+					int j = this.a().a(entity.getClass(),
+									(new AxisAlignedBB( blockposition.getX(),  blockposition.getY(),
+											 blockposition.getZ(),  (blockposition.getX() + 1),
+											 (blockposition.getY() + 1),  (blockposition.getZ() + 1)))
+													.grow(this.spawnRange,  this.spawnRange, this.spawnRange)).size();
 
 					if (maxNearbyEntities > 0 && j >= this.maxNearbyEntities) {
 						this.h();
 						return;
 					}
 
-					d0 = (double) blockposition.getX()
+					double d0 = (double) blockposition.getX()
 							+ (this.a().random.nextDouble() - this.a().random.nextDouble()) * (double) this.spawnRange
 							+ 0.5D;
-					double d3 = (double) (blockposition.getY() + this.a().random.nextInt(3) - 1);
+					double d3 = (blockposition.getY() + this.a().random.nextInt(3) - 1);
 					double d4 = (double) blockposition.getZ()
 							+ (this.a().random.nextDouble() - this.a().random.nextDouble()) * (double) this.spawnRange
 							+ 0.5D;
-					EntityInsentient entityinsentient = entity instanceof EntityInsentient ? (EntityInsentient) entity
-							: null;
+					EntityInsentient entityinsentient = entity instanceof EntityInsentient ? (EntityInsentient) entity : null;
+
 
 					entity.setPositionRotation(d0, d3, d4, this.a().random.nextFloat() * 360.0F, 0.0F);
 					if (entityinsentient == null || entityinsentient.bR() && entityinsentient.canSpawn()) {
+
 						this.a(entity, true);
 						this.a().triggerEffect(2004, blockposition, 0);
 						if (entityinsentient != null) {
@@ -175,10 +170,8 @@ public abstract class MobSpawnerAbstract {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 
 			entity.d(nbttagcompound);
-			Iterator iterator = this.i().c.c().iterator();
 
-			while (iterator.hasNext()) {
-				String s = (String) iterator.next();
+			for (String s : this.i().c.c()) {
 				NBTBase nbtbase = this.i().c.get(s);
 
 				nbttagcompound.set(s, nbtbase.clone());
@@ -187,14 +180,13 @@ public abstract class MobSpawnerAbstract {
 			entity.f(nbttagcompound);
 			if (entity.world != null && flag) {
 				// CraftBukkit start - call SpawnerSpawnEvent, abort if cancelled
-				SpawnerSpawnEvent event = CraftEventFactory.callSpawnerSpawnEvent(entity, this.b().getX(),
-						this.b().getY(), this.b().getZ());
+				entity.setCurseLevel((byte) mobCurse);
+				SpawnerSpawnEvent event = CraftEventFactory.callSpawnerSpawnEvent(entity, this.b().getX(), this.b().getY(), this.b().getZ());
 				if (!event.isCancelled()) {
 					entity.world.addEntity(entity, CreatureSpawnEvent.SpawnReason.SPAWNER); // CraftBukkit
 					// Spigot Start
-					if (entity.world.spigotConfig.nerfSpawnerMobs) {
-						entity.fromMobSpawner = true;
-					}
+					if (entity.world.spigotConfig.nerfSpawnerMobs) entity.fromMobSpawner = true;
+
 					// Spigot End
 				}
 				// CraftBukkit end
@@ -210,20 +202,16 @@ public abstract class MobSpawnerAbstract {
 					NBTTagCompound nbttagcompound2 = new NBTTagCompound();
 
 					entity2.d(nbttagcompound2);
-					Iterator iterator1 = nbttagcompound1.c().iterator();
 
-					while (iterator1.hasNext()) {
-						String s1 = (String) iterator1.next();
+					for (String s1 : nbttagcompound1.c()) {
 						NBTBase nbtbase1 = nbttagcompound1.get(s1);
-
 						nbttagcompound2.set(s1, nbtbase1.clone());
 					}
 
 					entity2.f(nbttagcompound2);
 					entity2.setPositionRotation(entity1.locX, entity1.locY, entity1.locZ, entity1.yaw, entity1.pitch);
 					// CraftBukkit start - call SpawnerSpawnEvent, skip if cancelled
-					SpawnerSpawnEvent event = CraftEventFactory.callSpawnerSpawnEvent(entity2, this.b().getX(),
-							this.b().getY(), this.b().getZ());
+					SpawnerSpawnEvent event = CraftEventFactory.callSpawnerSpawnEvent(entity2, this.b().getX(), this.b().getY(), this.b().getZ());
 					if (event.isCancelled()) {
 						continue;
 					}
@@ -241,8 +229,8 @@ public abstract class MobSpawnerAbstract {
 				((EntityInsentient) entity).prepare(entity.world.E(new BlockPosition(entity)), (GroupDataEntity) null);
 			}
 			// Spigot start - call SpawnerSpawnEvent, abort if cancelled
-			SpawnerSpawnEvent event = CraftEventFactory.callSpawnerSpawnEvent(entity, this.b().getX(), this.b().getY(),
-					this.b().getZ());
+			entity.setCurseLevel((byte) mobCurse);
+			SpawnerSpawnEvent event = CraftEventFactory.callSpawnerSpawnEvent(entity, this.b().getX(), this.b().getY(), this.b().getZ());
 			if (!event.isCancelled()) {
 				entity.world.addEntity(entity, CreatureSpawnEvent.SpawnReason.SPAWNER); // CraftBukkit
 				// Spigot Start
@@ -267,7 +255,7 @@ public abstract class MobSpawnerAbstract {
 		}
 
 		if (this.mobs.size() > 0) {
-			this.a((MobSpawnerAbstract.a) WeightedRandom.a(this.a().random, this.mobs));
+			this.a(WeightedRandom.a(this.a().random, this.mobs));
 		}
 
 		this.a(1);
@@ -302,6 +290,9 @@ public abstract class MobSpawnerAbstract {
 			this.requiredPlayerRange = nbttagcompound.getShort("RequiredPlayerRange");
 		}
 
+		if (nbttagcompound.hasKey("MobCurse"))
+			this.mobCurse = nbttagcompound.getShort("MobCurse");
+
 		if (nbttagcompound.hasKeyOfType("SpawnRange", 99)) {
 			this.spawnRange = nbttagcompound.getShort("SpawnRange");
 		}
@@ -320,6 +311,8 @@ public abstract class MobSpawnerAbstract {
 			nbttagcompound.setShort("MaxNearbyEntities", (short) this.maxNearbyEntities);
 			nbttagcompound.setShort("RequiredPlayerRange", (short) this.requiredPlayerRange);
 			nbttagcompound.setShort("SpawnRange", (short) this.spawnRange);
+			nbttagcompound.setShort("MobCurse", (short) this.mobCurse);
+
 			if (this.i() != null) {
 				nbttagcompound.set("SpawnData", this.i().c.clone());
 			}
@@ -328,11 +321,8 @@ public abstract class MobSpawnerAbstract {
 				NBTTagList nbttaglist = new NBTTagList();
 
 				if (this.mobs.size() > 0) {
-					Iterator iterator = this.mobs.iterator();
 
-					while (iterator.hasNext()) {
-						MobSpawnerAbstract.a mobspawnerabstract_a = (MobSpawnerAbstract.a) iterator.next();
-
+					for (a mobspawnerabstract_a : this.mobs) {
 						nbttaglist.add(mobspawnerabstract_a.a());
 					}
 				} else {
@@ -367,6 +357,71 @@ public abstract class MobSpawnerAbstract {
 	public abstract World a();
 
 	public abstract BlockPosition b();
+
+
+	public int getSpawnDelay() {
+		return spawnDelay;
+	}
+
+	public int getMinSpawnDelay() {
+		return minSpawnDelay;
+	}
+
+	public int getMaxSpawnDelay() {
+		return maxSpawnDelay;
+	}
+
+	public int getSpawnCount() {
+		return spawnCount;
+	}
+
+	public int getMaxNearbyEntities() {
+		return maxNearbyEntities;
+	}
+
+	public int getRequiredPlayerRange() {
+		return requiredPlayerRange;
+	}
+
+	public int getSpawnRange() {
+		return spawnRange;
+	}
+
+	public int getMobCurse() {
+		return mobCurse;
+	}
+
+	public void setSpawnDelay(int spawnDelay) {
+		this.spawnDelay = spawnDelay;
+	}
+
+	public void setMinSpawnDelay(int minSpawnDelay) {
+		this.minSpawnDelay = minSpawnDelay;
+	}
+
+	public void setMaxSpawnDelay(int maxSpawnDelay) {
+		this.maxSpawnDelay = maxSpawnDelay;
+	}
+
+	public void setSpawnCount(int spawnCount) {
+		this.spawnCount = spawnCount;
+	}
+
+	public void setMaxNearbyEntities(int maxNearbyEntities) {
+		this.maxNearbyEntities = maxNearbyEntities;
+	}
+
+	public void setRequiredPlayerRange(int requiredPlayerRange) {
+		this.requiredPlayerRange = requiredPlayerRange;
+	}
+
+	public void setSpawnRange(int spawnRange) {
+		this.spawnRange = spawnRange;
+	}
+
+	public void setMobCurse(int mobCurse) {
+		this.mobCurse = mobCurse;
+	}
 
 	public class a extends WeightedRandom.WeightedRandomChoice {
 

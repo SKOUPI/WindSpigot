@@ -189,10 +189,19 @@ public abstract class Entity implements ICommandListener {
 	public final boolean defaultActivationState;
 	public long activatedTick = Integer.MIN_VALUE;
 	public boolean fromMobSpawner;
+	private byte curseLevel; // From SKOUPI
 
 	public void inactiveTick() {
 	}
 	// Spigot end
+
+	public byte getCurseLevel() {
+		return curseLevel;
+	}
+
+	public void setCurseLevel(byte curseLevel) {
+		this.curseLevel = curseLevel;
+	}
 
 	public int getId() {
 		return this.id;

@@ -680,7 +680,8 @@ public class WorldData {
 			}
 		});
 		crashreportsystemdetails.a("Level storage version", new Callable() {
-			public String a() throws Exception {
+			public String a()
+			{
 				String s = "Unknown?";
 
 				try {
@@ -692,23 +693,22 @@ public class WorldData {
 					case 19133:
 						s = "Anvil";
 					}
-				} catch (Throwable throwable) {
-					;
+				} catch (Throwable ignored) {
+
 				}
 
-				return String.format("0x%05X - %s", new Object[] { Integer.valueOf(WorldData.this.o), s });
+				return String.format("0x%05X - %s", WorldData.this.o, s);
 			}
 
 			@Override
-			public Object call() throws Exception {
+			public Object call()
+			{
 				return this.a();
 			}
 		});
 		crashreportsystemdetails.a("Level weather", new Callable() {
 			public String a() throws Exception {
-				return String.format("Rain time: %d (now: %b), thunder time: %d (now: %b)",
-						new Object[] { Integer.valueOf(WorldData.this.r), Boolean.valueOf(WorldData.this.q),
-								Integer.valueOf(WorldData.this.t), Boolean.valueOf(WorldData.this.s) });
+				return String.format("Rain time: %d (now: %b), thunder time: %d (now: %b)", WorldData.this.r, WorldData.this.q, WorldData.this.t, WorldData.this.s);
 			}
 
 			@Override
@@ -718,9 +718,7 @@ public class WorldData {
 		});
 		crashreportsystemdetails.a("Level game mode", new Callable() {
 			public String a() throws Exception {
-				return String.format("Game mode: %s (ID %d). Hardcore: %b. Cheats: %b",
-						new Object[] { WorldData.this.u.b(), Integer.valueOf(WorldData.this.u.getId()),
-								Boolean.valueOf(WorldData.this.w), Boolean.valueOf(WorldData.this.x) });
+				return String.format("Game mode: %s (ID %d). Hardcore: %b. Cheats: %b", WorldData.this.u.b(), WorldData.this.u.getId(), WorldData.this.w, WorldData.this.x);
 			}
 
 			@Override

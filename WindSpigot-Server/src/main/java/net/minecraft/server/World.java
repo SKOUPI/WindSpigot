@@ -1338,37 +1338,35 @@ public abstract class World implements IBlockAccess {
             // SKOUPI - Stacker Start
             if (entity instanceof EntityInsentient && entity.getBukkitEntity().getType() != EntityType.VILLAGER && spawnReason != SpawnReason.STACK) {
 
-                stackerExecutor.submit(() -> {
+                //stackerExecutor.submit(() -> {
 
-                    EntityInsentient spawned = (EntityInsentient) entity;
+                EntityInsentient spawned = (EntityInsentient) entity;
+                List<EntityInsentient> nearbyEntitiesInsentient = new ArrayList<>();
 
-                    List<Entity> nearbyEntities = getEntities(entity, entity.getBoundingBox().grow(8, 8, 8));
-                    List<EntityInsentient> nearbyEntitiesInsentient = new ArrayList<>();
 
-                    for (Entity entity1 : nearbyEntities) {
-                        if (entity1 instanceof EntityInsentient && entity1.getBukkitEntity().getType().equals(entity.getBukkitEntity().getType())) {
-                            EntityInsentient entityIns = (EntityInsentient) entity1;
-                            if (entityIns.getStackHolder().getStackAmount() < 250) {
-                                nearbyEntitiesInsentient.add((EntityInsentient) entity1);
-                                break;
-                            }
+                for (Entity entity1 : getEntities(entity, entity.getBoundingBox().grow(8, 8, 8))) {
+                    if (entity1 instanceof EntityInsentient && entity1.getBukkitEntity().getType().equals(entity.getBukkitEntity().getType())) {
+                        EntityInsentient entityIns = (EntityInsentient) entity1;
+                        if (entityIns.getStackHolder().getStackAmount() < 250) {
+                            nearbyEntitiesInsentient.add((EntityInsentient) entity1);
+                            break;
                         }
                     }
+                }
 
-                    if (!nearbyEntitiesInsentient.isEmpty()) {
-                        for (EntityInsentient nearest : nearbyEntitiesInsentient) {
-                            if (nearest.getStackHolder().getStackAmount() < 250) {
-                                spawned.die();
-                                nearbyEntitiesInsentient.remove(nearest);
-                                nearest.getStackHolder().incrementStackAmount(1);
-                                nearest.setStackName(nearest);
-                                break;
-                            }
+                if (!nearbyEntitiesInsentient.isEmpty()) {
+                    for (EntityInsentient nearest : nearbyEntitiesInsentient) {
+                        if (nearest.getStackHolder().getStackAmount() < 250) {
+                            spawned.die();
+                            nearbyEntitiesInsentient.remove(nearest);
+                            nearest.getStackHolder().incrementStackAmount(1);
+                            nearest.setStackName(nearest);
+                            break;
                         }
                     }
-                    nearbyEntities.clear();
-                    nearbyEntitiesInsentient.clear();
-                });
+                }
+                nearbyEntitiesInsentient.clear();
+                //  });
             }
             // SKOUPI - Stacker End
             boolean isAnimal = entity instanceof EntityAnimal || entity instanceof EntityWaterAnimal || entity instanceof EntityGolem;
@@ -3741,21 +3739,24 @@ public abstract class World implements IBlockAccess {
     }
 
     public void updateAdjacentComparators(BlockPosition blockposition, Block block) {
-        Iterator iterator = EnumDirection.EnumDirectionLimit.HORIZONTAL.iterator();
 
-        while (iterator.hasNext()) {
-            EnumDirection enumdirection = (EnumDirection) iterator.next();
+        for (EnumDirection enumdirection : EnumDirection.EnumDirectionLimit.HORIZONTAL)
+        {
             BlockPosition blockposition1 = blockposition.shift(enumdirection);
 
-            if (this.isLoaded(blockposition1)) {
+            if (this.isLoaded(blockposition1))
+            {
                 IBlockData iblockdata = this.getType(blockposition1);
 
-                if (Blocks.UNPOWERED_COMPARATOR.e(iblockdata.getBlock())) {
+                if (Blocks.UNPOWERED_COMPARATOR.e(iblockdata.getBlock()))
+                {
                     iblockdata.getBlock().doPhysics(this, blockposition1, iblockdata, block);
-                } else if (iblockdata.getBlock().isOccluding()) {
+                } else if (iblockdata.getBlock().isOccluding())
+                {
                     blockposition1 = blockposition1.shift(enumdirection);
                     iblockdata = this.getType(blockposition1);
-                    if (Blocks.UNPOWERED_COMPARATOR.e(iblockdata.getBlock())) {
+                    if (Blocks.UNPOWERED_COMPARATOR.e(iblockdata.getBlock()))
+                    {
                         iblockdata.getBlock().doPhysics(this, blockposition1, iblockdata, block);
                     }
                 }

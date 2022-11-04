@@ -87,6 +87,76 @@ public class CraftCreatureSpawner extends CraftBlockState implements CreatureSpa
 	}
 
 	@Override
+	public int getMinDelay() {
+		return spawner.getSpawner().getMinSpawnDelay();
+	}
+
+	@Override
+	public void setMinDelay(int minDelay) {
+		spawner.getSpawner().setMinSpawnDelay(minDelay);
+	}
+
+	@Override
+	public int getMaxDelay() {
+		return spawner.getSpawner().getMaxSpawnDelay();
+	}
+
+	@Override
+	public void setMaxDelay(int maxDelay) {
+		spawner.getSpawner().setMaxSpawnDelay(maxDelay);
+	}
+
+	@Override
+	public int getSpawnCount() {
+		return spawner.getSpawner().getSpawnCount();
+	}
+
+	@Override
+	public void setSpawnCount(int spawnCount) {
+		spawner.getSpawner().setSpawnCount(spawnCount);
+	}
+
+	@Override
+	public int getMaxNearbyEntity() {
+		return spawner.getSpawner().getMaxNearbyEntities();
+	}
+
+	@Override
+	public void setMaxNearbyEntity(int maxNearbyEntity) {
+		spawner.getSpawner().setMaxNearbyEntities(maxNearbyEntity);
+	}
+
+	@Override
+	public int getRequiredPlayerRange() {
+		return spawner.getSpawner().getRequiredPlayerRange();
+	}
+
+	@Override
+	public void setRequiredPlayerRange(int requiredPlayerRange) {
+		spawner.getSpawner().setRequiredPlayerRange(requiredPlayerRange);
+	}
+
+	@Override
+	public int getSpawnRange() {
+		return spawner.getSpawner().getSpawnRange();
+	}
+
+	@Override
+	public void setSpawnRange(int spawnRange) {
+		spawner.getSpawner().setSpawnRange(spawnRange);
+	}
+
+	@Override
+	public int getCurse() {
+		return spawner.getSpawner().getMobCurse();
+	}
+
+	@Override
+	public void setCurse(int curse) {
+		spawner.getSpawner().setMobCurse(curse);
+	}
+
+	@Override
 	public TileEntityMobSpawner getTileEntity() {
 		return spawner;
 	}
