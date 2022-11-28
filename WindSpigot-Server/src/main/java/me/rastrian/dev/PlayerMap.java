@@ -84,7 +84,7 @@ public class PlayerMap {
 			for (int chunkZ = MathHelper.floor(z - distance) >> CHUNK_BITS; chunkZ <= chunkZMax; chunkZ++) {
 				List<EntityPlayer> players = map.get(xzToKey(chunkX, chunkZ));
 				if (players != null) {
-					for (EntityPlayer player : players) {
+					for (EntityPlayer player : List.copyOf(players)) {
 						if (!useRadius || player.e(x, y, z) < distance * distance) {
 							function.accept(player);
 						}
