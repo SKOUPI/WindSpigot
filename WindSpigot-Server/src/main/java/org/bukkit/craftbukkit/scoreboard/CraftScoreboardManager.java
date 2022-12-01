@@ -8,8 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.apache.commons.lang3.Validate;import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.craftbukkit.util.WeakCollection;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.ScoreboardManager;

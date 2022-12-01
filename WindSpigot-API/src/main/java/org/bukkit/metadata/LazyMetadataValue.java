@@ -3,8 +3,7 @@ package org.bukkit.metadata;
 import java.lang.ref.SoftReference;
 import java.util.concurrent.Callable;
 
-import org.apache.commons.lang.Validate;
-import org.bukkit.plugin.Plugin;
+import org.apache.commons.lang3.Validate;import org.bukkit.plugin.Plugin;
 
 /**
  * The LazyMetadataValue class implements a type of metadata that is not

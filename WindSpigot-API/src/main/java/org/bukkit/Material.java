@@ -3,8 +3,7 @@ package org.bukkit;
 import java.lang.reflect.Constructor;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-import org.bukkit.map.MapView;
+import org.apache.commons.lang3.Validate;import org.bukkit.map.MapView;
 import org.bukkit.material.Banner;
 import org.bukkit.material.Bed;
 import org.bukkit.material.Button;

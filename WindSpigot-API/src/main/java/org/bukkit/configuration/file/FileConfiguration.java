@@ -13,8 +13,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
 
-import org.apache.commons.lang.Validate;
-import org.bukkit.configuration.Configuration;
+import org.apache.commons.lang3.Validate;import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;

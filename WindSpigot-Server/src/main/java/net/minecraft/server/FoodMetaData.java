@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import org.apache.commons.lang3.Validate;
+
 public class FoodMetaData {
 
 	public int foodLevel = 20;
@@ -14,7 +16,7 @@ public class FoodMetaData {
 
 	// CraftBukkit start - added EntityHuman constructor
 	public FoodMetaData(EntityHuman entityhuman) {
-		org.apache.commons.lang.Validate.notNull(entityhuman);
+		Validate.notNull(entityhuman);
 		this.entityhuman = entityhuman;
 	}
 	// CraftBukkit end

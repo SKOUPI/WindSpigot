@@ -2,8 +2,7 @@ package org.bukkit.craftbukkit.inventory;
 
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-import org.bukkit.Material;
+import org.apache.commons.lang3.Validate;import org.bukkit.Material;
 import org.bukkit.block.BlockState;
 import org.bukkit.configuration.serialization.DelegateDeserialization;
 import org.bukkit.craftbukkit.block.CraftBanner;

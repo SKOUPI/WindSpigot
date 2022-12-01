@@ -2,8 +2,7 @@ package org.bukkit.craftbukkit.entity;
 
 import java.util.UUID;
 
-import org.apache.commons.lang.Validate;
-import org.bukkit.craftbukkit.CraftServer;
+import org.apache.commons.lang3.Validate;import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.inventory.CraftInventoryHorse;
 import org.bukkit.entity.AnimalTamer;
 import org.bukkit.entity.EntityType;

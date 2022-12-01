@@ -15,9 +15,8 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
-import org.bukkit.Achievement;
+import org.apache.commons.lang3.NotImplementedException;
+import org.apache.commons.lang3.Validate;import org.bukkit.Achievement;
 import org.bukkit.BanList;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;

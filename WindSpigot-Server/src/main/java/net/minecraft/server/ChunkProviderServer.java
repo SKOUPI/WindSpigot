@@ -113,14 +113,8 @@ public class ChunkProviderServer implements IChunkProvider {
 	}
 
 	public void b() {
-		Iterator iterator = this.chunks.values().iterator();
-
-		while (iterator.hasNext()) {
-			Chunk chunk = (Chunk) iterator.next();
-
+		for (Chunk chunk : this.chunks.values())
 			this.queueUnload(chunk.locX, chunk.locZ);
-		}
-
 	}
 
 	private boolean callChunkPreLoad(int i, int j) {
@@ -388,20 +382,20 @@ public class ChunkProviderServer implements IChunkProvider {
 		int i = 0;
 
 		// CraftBukkit start
-		Iterator iterator = this.chunks.values().iterator();
-		while (iterator.hasNext()) {
-			Chunk chunk = (Chunk) iterator.next();
+		for (Chunk chunk : this.chunks.values())
+		{
 			// CraftBukkit end
 
-			if (flag) {
+			if (flag)
 				this.saveChunkNOP(chunk);
-			}
 
-			if (chunk.a(flag)) {
+			if (chunk.a(flag))
+			{
 				this.saveChunk(chunk);
 				chunk.f(false);
 				++i;
-				if (i == 24 && !flag && false) { // Spigot
+				if (i == 24 && !flag && false)
+				{ // Spigot
 					return false;
 				}
 			}

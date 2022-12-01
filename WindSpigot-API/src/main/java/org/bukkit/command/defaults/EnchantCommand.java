@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
-import org.apache.commons.lang.Validate;
-import org.apache.commons.lang.WordUtils;
+import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -21,7 +21,7 @@ import com.google.common.collect.ImmutableList;
 
 @Deprecated
 public class EnchantCommand extends VanillaCommand {
-	private static final List<String> ENCHANTMENT_NAMES = new ArrayList<String>();
+	private static final List<String> ENCHANTMENT_NAMES = new ArrayList<>();
 
 	public EnchantCommand() {
 		super("enchant");
@@ -53,14 +53,14 @@ public class EnchantCommand extends VanillaCommand {
 				sender.sendMessage("The player isn't holding an item");
 			} else {
 				String itemName = item.getType().toString().replaceAll("_", " ");
-				itemName = WordUtils.capitalizeFully(itemName);
+				itemName = upperCaseAllFirstCharacter(itemName);
 
 				Enchantment enchantment = getEnchantment(args[1].toUpperCase());
 				if (enchantment == null) {
 					sender.sendMessage(String.format("Enchantment does not exist: %s", args[1]));
 				} else {
 					String enchantmentName = enchantment.getName().replaceAll("_", " ");
-					enchantmentName = WordUtils.capitalizeFully(enchantmentName);
+					enchantmentName = upperCaseAllFirstCharacter(enchantmentName);
 
 					if (!force && !enchantment.canEnchantItem(item)) {
 						sender.sendMessage(String.format("%s cannot be applied to %s", enchantmentName, itemName));
@@ -108,7 +108,7 @@ public class EnchantCommand extends VanillaCommand {
 									sender.sendMessage(String.format(
 											"Can't apply the enchantment %s on an item with the enchantment %s",
 											enchantmentName,
-											WordUtils.capitalizeFully(enchant.getName().replaceAll("_", " "))));
+											upperCaseAllFirstCharacter(enchant.getName().replaceAll("_", " "))));
 									conflicts = true;
 									break;
 								}
@@ -177,5 +177,12 @@ public class EnchantCommand extends VanillaCommand {
 		}
 
 		Collections.sort(ENCHANTMENT_NAMES);
+	}
+
+	private String upperCaseAllFirstCharacter(String text) {
+		String regex = "\\b(.)(.*?)\\b";
+		return Pattern.compile(regex).matcher(text).replaceAll(
+				matche -> matche.group(1).toUpperCase() + matche.group(2)
+		);
 	}
 }

@@ -47,7 +47,7 @@ public class TicksPerSecondCommand extends Command {
 		
 		sender.sendMessage(ChatColor.DARK_AQUA + "WindSpigot Performance:");
 		sender.sendMessage(ChatColor.AQUA + "TPS from last 1m, 5m, 15m: "
-				+ org.apache.commons.lang.StringUtils.join(tpsAvg, ", "));
+				+ org.apache.commons.lang3.StringUtils.join(tpsAvg, ", "));
 		sender.sendMessage(ChatColor.AQUA + "Current Memory Usage: " + ChatColor.GREEN
 				+ ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / (1024 * 1024)) + "/"
 				+ (Runtime.getRuntime().totalMemory() / (1024 * 1024)) + " mb (Max: "
@@ -63,7 +63,7 @@ public class TicksPerSecondCommand extends Command {
 
 	private static String format(double tps) // PaperSpigot - made static
 	{
-		return ((tps > 18.0) ? ChatColor.GREEN : (tps > 16.0) ? ChatColor.YELLOW : ChatColor.RED).toString()
+		return ((tps > 18.0) ? ChatColor.GREEN : (tps > 16.0) ? ChatColor.YELLOW : ChatColor.RED)
 				+ ((tps > 21.0) ? "*" : "") + Math.min(Math.round(tps * 100.0) / 100.0, 20.0); // Paper - only print * at 21, we commonly peak to 20.02 as the tick sleep is not accurate enough, stop the noise
 	}
 }

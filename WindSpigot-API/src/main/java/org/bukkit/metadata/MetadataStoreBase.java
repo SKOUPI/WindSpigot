@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import org.apache.commons.lang.Validate;
-import org.bukkit.plugin.Plugin;
+import org.apache.commons.lang3.Validate;import org.bukkit.plugin.Plugin;
 
 public abstract class MetadataStoreBase<T> {
 	private Map<String, Map<Plugin, MetadataValue>> metadataMap = new HashMap<String, Map<Plugin, MetadataValue>>();

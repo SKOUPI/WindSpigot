@@ -2,8 +2,7 @@ package org.bukkit.craftbukkit;
 
 import static org.bukkit.Sound.*;
 
-import org.apache.commons.lang.Validate;
-import org.bukkit.Sound;
+import org.apache.commons.lang3.Validate;import org.bukkit.Sound;
 
 public class CraftSound {
 	private static final String[] sounds = new String[Sound.values().length];

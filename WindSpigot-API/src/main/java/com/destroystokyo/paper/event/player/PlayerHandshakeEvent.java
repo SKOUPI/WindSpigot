@@ -2,8 +2,7 @@ package com.destroystokyo.paper.event.player;
 
 import java.util.UUID;
 
-import org.apache.commons.lang.Validate;
-import org.bukkit.event.Cancellable;
+import org.apache.commons.lang3.Validate;import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

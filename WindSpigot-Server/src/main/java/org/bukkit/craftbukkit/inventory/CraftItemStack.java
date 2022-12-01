@@ -6,8 +6,7 @@ import static org.bukkit.craftbukkit.inventory.CraftMetaItem.ENCHANTMENTS_LVL;
 
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-import org.bukkit.Material;
+import org.apache.commons.lang3.Validate;import org.bukkit.Material;
 import org.bukkit.configuration.serialization.DelegateDeserialization;
 import org.bukkit.craftbukkit.util.CraftMagicNumbers;
 import org.bukkit.enchantments.Enchantment;

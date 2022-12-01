@@ -3,7 +3,7 @@ package org.bukkit.inventory;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Utility;

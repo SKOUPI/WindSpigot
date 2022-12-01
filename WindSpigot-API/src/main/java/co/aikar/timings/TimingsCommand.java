@@ -26,8 +26,7 @@ package co.aikar.timings;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-import org.bukkit.ChatColor;
+import org.apache.commons.lang3.Validate;import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.util.StringUtil;

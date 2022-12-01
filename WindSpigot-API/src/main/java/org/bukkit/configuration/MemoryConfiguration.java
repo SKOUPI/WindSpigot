@@ -2,8 +2,7 @@ package org.bukkit.configuration;
 
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
+import org.apache.commons.lang3.Validate;
 /**
  * This is a {@link Configuration} implementation that does not save or load
  * from any source, and stores all values in memory only. This is useful for

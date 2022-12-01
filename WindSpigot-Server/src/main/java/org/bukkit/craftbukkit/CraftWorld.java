@@ -11,8 +11,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
-import org.apache.commons.lang.Validate;
-import org.bukkit.BlockChangeDelegate;
+import org.apache.commons.lang3.Validate;import org.bukkit.BlockChangeDelegate;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.ChunkSnapshot;

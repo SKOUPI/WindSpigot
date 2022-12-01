@@ -2,8 +2,7 @@ package org.bukkit.craftbukkit.inventory;
 
 import java.util.Collection;
 
-import org.apache.commons.lang.Validate;
-import org.bukkit.Color;
+import org.apache.commons.lang3.Validate;import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.inventory.ItemFactory;
