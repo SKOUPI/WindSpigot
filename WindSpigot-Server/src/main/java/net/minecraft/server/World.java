@@ -185,7 +185,7 @@ public abstract class World implements IBlockAccess {
     // Asynchronous
     // stacker
     // try stack
-    public ExecutorService stackerExecutor = Executors.newFixedThreadPool(6, new ThreadFactoryBuilder().setNameFormat("SKOUPI - Stacker Thread").build()); // PaperSpigot
+    //public ExecutorService stackerExecutor = Executors.newFixedThreadPool(6, new ThreadFactoryBuilder().setNameFormat("SKOUPI - Stacker Thread").build()); // PaperSpigot
 
     public static long chunkToKey(int x, int z) {
         long k = (((x) & 0xFFFF0000L) << 16) | (((x) & 0x0000FFFFL));

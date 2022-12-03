@@ -40,7 +40,7 @@ public class EnchantmentProtection extends Enchantment {
         } else {
             float var3 = (float)(6 + var1 * var1) / 3.0F;
             if (this.a == 0) {
-                return MathHelper.d(var3);
+                return (int) var3;
             } else if (this.a == 1 && var2.o()) {
                 return MathHelper.d(var3 * 1.25F);
             } else if (this.a == 2 && var2 == DamageSource.FALL) {
