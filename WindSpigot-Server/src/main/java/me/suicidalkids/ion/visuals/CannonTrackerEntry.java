@@ -35,9 +35,9 @@ public class CannonTrackerEntry extends EntityTrackerEntry {
 	private double updateY;
 	private double updateZ;
 
-	private List<EntityPlayer> toRemove = new ArrayList<>();
-	private EntityTracker entityTracker;
-	private int addRemoveRate;
+	private final List<EntityPlayer> toRemove = new ArrayList<>();
+	private final EntityTracker entityTracker;
+	private final int addRemoveRate;
 	private int addRemoveCooldown;
 	private boolean withinNoTrack = false;
 

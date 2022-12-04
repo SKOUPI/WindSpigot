@@ -157,13 +157,13 @@ public class EntityFallingBlock extends Entity {
 										NBTTagCompound nbttagcompound = new NBTTagCompound();
 
 										tileentity.b(nbttagcompound);
-										Iterator iterator = this.tileEntityData.c().iterator();
 
-										while (iterator.hasNext()) {
-											String s = (String) iterator.next();
+										for (String s : this.tileEntityData.c())
+										{
 											NBTBase nbtbase = this.tileEntityData.get(s);
 
-											if (!"x".equals(s) && !"y".equals(s) && !"z".equals(s)) {
+											if (!"x".equals(s) && !"y".equals(s) && !"z".equals(s))
+											{
 												nbttagcompound.set(s, nbtbase.clone());
 											}
 										}
@@ -198,28 +198,25 @@ public class EntityFallingBlock extends Entity {
 			int i = MathHelper.f(f - 1.0F);
 
 			if (i > 0) {
-				ArrayList arraylist = Lists.newArrayList(this.world.getEntities(this, this.getBoundingBox()));
+				ArrayList<Entity> arraylist = Lists.newArrayList(this.world.getEntities(this, this.getBoundingBox()));
 				boolean flag = block == Blocks.ANVIL;
 				DamageSource damagesource = flag ? DamageSource.ANVIL : DamageSource.FALLING_BLOCK;
-				Iterator iterator = arraylist.iterator();
 
-				while (iterator.hasNext()) {
-					Entity entity = (Entity) iterator.next();
-
+				for (Entity entity : arraylist)
+				{
 					CraftEventFactory.entityDamage = this; // CraftBukkit
-					entity.damageEntity(damagesource,
-							Math.min(MathHelper.d(i * this.fallHurtAmount), this.fallHurtMax));
+					entity.damageEntity(damagesource, Math.min(MathHelper.d(i * this.fallHurtAmount), this.fallHurtMax));
 					CraftEventFactory.entityDamage = null; // CraftBukkit
 				}
 
 				if (flag && this.random.nextFloat() < 0.05000000074505806D + i * 0.05D) {
-					int j = this.block.get(BlockAnvil.DAMAGE).intValue();
+					int j = this.block.get(BlockAnvil.DAMAGE);
 
 					++j;
 					if (j > 2) {
 						this.e = true;
 					} else {
-						this.block = this.block.set(BlockAnvil.DAMAGE, Integer.valueOf(j));
+						this.block = this.block.set(BlockAnvil.DAMAGE, j);
 					}
 				}
 			}

@@ -108,15 +108,14 @@ public class ItemSkull extends Item {
 	public String a(ItemStack itemstack) {
 		if (itemstack.getData() == 3 && itemstack.hasTag()) {
 			if (itemstack.getTag().hasKeyOfType("SkullOwner", 8)) {
-				return LocaleI18n.a("item.skull.player.name",
-						new Object[] { itemstack.getTag().getString("SkullOwner") });
+				return LocaleI18n.a("item.skull.player.name", itemstack.getTag().getString("SkullOwner"));
 			}
 
 			if (itemstack.getTag().hasKeyOfType("SkullOwner", 10)) {
 				NBTTagCompound nbttagcompound = itemstack.getTag().getCompound("SkullOwner");
 
 				if (nbttagcompound.hasKeyOfType("Name", 8)) {
-					return LocaleI18n.a("item.skull.player.name", new Object[] { nbttagcompound.getString("Name") });
+					return LocaleI18n.a("item.skull.player.name", nbttagcompound.getString("Name"));
 				}
 			}
 		}
@@ -128,17 +127,13 @@ public class ItemSkull extends Item {
 	public boolean a(final NBTTagCompound nbttagcompound) { // Spigot - make final
 		super.a(nbttagcompound);
 		if (nbttagcompound.hasKeyOfType("SkullOwner", 8) && nbttagcompound.getString("SkullOwner").length() > 0) {
-			GameProfile gameprofile = new GameProfile((UUID) null, nbttagcompound.getString("SkullOwner"));
+			GameProfile gameprofile = new GameProfile(null, nbttagcompound.getString("SkullOwner"));
 
 			// Spigot start
-			TileEntitySkull.b(gameprofile, new com.google.common.base.Predicate<GameProfile>() {
-
-				@Override
-				public boolean apply(GameProfile gameprofile) {
-					nbttagcompound.set("SkullOwner",
-							GameProfileSerializer.serialize(new NBTTagCompound(), gameprofile));
-					return false;
-				}
+			TileEntitySkull.b(gameprofile, gameprofile1 -> {
+				nbttagcompound.set("SkullOwner",
+						GameProfileSerializer.serialize(new NBTTagCompound(), gameprofile1));
+				return false;
 			});
 			// Spigot end
 			return true;

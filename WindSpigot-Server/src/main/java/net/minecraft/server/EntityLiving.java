@@ -582,7 +582,7 @@ public abstract class EntityLiving extends Entity {
 		isTickingEffects = true; // CraftBukkit
 		while (iterator.hasNext())
 		{
-			Integer integer = (Integer) iterator.next();
+			Integer integer = iterator.next();
 			MobEffect mobeffect = this.effects.get(integer);
 
 			if (!mobeffect.tick(this))

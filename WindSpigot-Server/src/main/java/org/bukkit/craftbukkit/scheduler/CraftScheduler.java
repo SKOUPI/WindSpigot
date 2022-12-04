@@ -65,12 +65,7 @@ public class CraftScheduler implements BukkitScheduler {
 	/**
 	 * Main thread logic only
 	 */
-	private final PriorityQueue<CraftTask> pending = new PriorityQueue<CraftTask>(10, new Comparator<CraftTask>() {
-		@Override
-		public int compare(final CraftTask o1, final CraftTask o2) {
-			return (int) (o1.getNextRun() - o2.getNextRun());
-		}
-	});
+	private final PriorityQueue<CraftTask> pending = new PriorityQueue<CraftTask>(10, (o1, o2) -> (int) (o1.getNextRun() - o2.getNextRun()));
 	/**
 	 * Main thread logic only
 	 */

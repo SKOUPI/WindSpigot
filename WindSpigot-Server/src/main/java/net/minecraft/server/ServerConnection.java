@@ -215,8 +215,7 @@ public class ServerConnection {
 							final ChatComponentText chatcomponenttext = new ChatComponentText("Internal server error");
 
 							networkmanager.a(new PacketPlayOutKickDisconnect(chatcomponenttext),
-									(GenericFutureListener) future -> networkmanager.close(chatcomponenttext),
-									new GenericFutureListener[0]);
+									(GenericFutureListener) future -> networkmanager.close(chatcomponenttext));
 							networkmanager.k();
 						}
 					}

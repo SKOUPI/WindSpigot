@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 // CraftBukkit start
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.craftbukkit.entity.CraftHumanEntity;
@@ -489,9 +490,6 @@ public class TileEntityFurnace extends TileEntityContainer implements IUpdatePla
 
 	@Override
 	public void l() {
-		for (int i = 0; i < this.items.length; ++i) {
-			this.items[i] = null;
-		}
-
+		Arrays.fill(this.items, null);
 	}
 }

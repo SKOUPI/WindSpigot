@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.common.collect.Lists;
 
@@ -8,13 +9,13 @@ public class RecipeRepair extends ShapelessRecipes implements IRecipe { // Craft
 
 	// CraftBukkit start - Delegate to new parent class
 	public RecipeRepair() {
-		super(new ItemStack(Items.LEATHER_HELMET), java.util.Arrays.asList(new ItemStack(Items.LEATHER_HELMET)));
+		super(new ItemStack(Items.LEATHER_HELMET), List.of(new ItemStack(Items.LEATHER_HELMET)));
 	}
 	// CraftBukkit end
 
 	@Override
 	public boolean a(InventoryCrafting inventorycrafting, World world) {
-		ArrayList arraylist = Lists.newArrayList();
+		ArrayList<ItemStack> arraylist = Lists.newArrayList();
 
 		for (int i = 0; i < inventorycrafting.getSize(); ++i) {
 			ItemStack itemstack = inventorycrafting.getItem(i);
@@ -22,7 +23,7 @@ public class RecipeRepair extends ShapelessRecipes implements IRecipe { // Craft
 			if (itemstack != null) {
 				arraylist.add(itemstack);
 				if (arraylist.size() > 1) {
-					ItemStack itemstack1 = (ItemStack) arraylist.get(0);
+					ItemStack itemstack1 = arraylist.get(0);
 
 					if (itemstack.getItem() != itemstack1.getItem() || itemstack1.count != 1 || itemstack.count != 1
 							|| !itemstack1.getItem().usesDurability()) {
@@ -37,7 +38,7 @@ public class RecipeRepair extends ShapelessRecipes implements IRecipe { // Craft
 
 	@Override
 	public ItemStack craftItem(InventoryCrafting inventorycrafting) {
-		ArrayList arraylist = Lists.newArrayList();
+		ArrayList<ItemStack> arraylist = Lists.newArrayList();
 
 		ItemStack itemstack;
 
@@ -46,7 +47,7 @@ public class RecipeRepair extends ShapelessRecipes implements IRecipe { // Craft
 			if (itemstack != null) {
 				arraylist.add(itemstack);
 				if (arraylist.size() > 1) {
-					ItemStack itemstack1 = (ItemStack) arraylist.get(0);
+					ItemStack itemstack1 = arraylist.get(0);
 
 					if (itemstack.getItem() != itemstack1.getItem() || itemstack1.count != 1 || itemstack.count != 1
 							|| !itemstack1.getItem().usesDurability()) {
@@ -77,8 +78,7 @@ public class RecipeRepair extends ShapelessRecipes implements IRecipe { // Craft
 				java.util.List<ItemStack> ingredients = new ArrayList<ItemStack>();
 				ingredients.add(itemstack2.cloneItemStack());
 				ingredients.add(itemstack.cloneItemStack());
-				ShapelessRecipes recipe = new ShapelessRecipes(result.cloneItemStack(), ingredients);
-				inventorycrafting.currentRecipe = recipe;
+				inventorycrafting.currentRecipe = new ShapelessRecipes(result.cloneItemStack(), ingredients);
 				result = org.bukkit.craftbukkit.event.CraftEventFactory.callPreCraftEvent(inventorycrafting, result,
 						CraftingManager.getInstance().lastCraftView, true);
 				return result;

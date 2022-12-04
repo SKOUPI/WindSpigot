@@ -23,14 +23,14 @@ public class EntityIronGolem extends EntityGolem {
 		this.goalSelector.a(8, new PathfinderGoalRandomLookaround(this));
 		this.targetSelector.a(1, new PathfinderGoalDefendVillage(this));
 		this.targetSelector.a(2, new PathfinderGoalHurtByTarget(this, false, new Class[0]));
-		this.targetSelector.a(3, new EntityIronGolem.PathfinderGoalNearestGolemTarget(this, EntityInsentient.class, 10,
+		this.targetSelector.a(3, new EntityIronGolem.PathfinderGoalNearestGolemTarget<>(this, EntityInsentient.class, 10,
 				false, true, IMonster.e));
 	}
 
 	@Override
 	protected void h() {
 		super.h();
-		this.datawatcher.a(16, Byte.valueOf((byte) 0));
+		this.datawatcher.a(16, (byte) 0);
 	}
 
 	@Override
@@ -96,8 +96,7 @@ public class EntityIronGolem extends EntityGolem {
 				this.world.addParticle(EnumParticle.BLOCK_CRACK,
 						this.locX + (this.random.nextFloat() - 0.5D) * this.width, this.getBoundingBox().b + 0.1D,
 						this.locZ + (this.random.nextFloat() - 0.5D) * this.width,
-						4.0D * (this.random.nextFloat() - 0.5D), 0.5D, (this.random.nextFloat() - 0.5D) * 4.0D,
-						new int[] { Block.getCombinedId(iblockdata) });
+						4.0D * (this.random.nextFloat() - 0.5D), 0.5D, (this.random.nextFloat() - 0.5D) * 4.0D, Block.getCombinedId(iblockdata));
 			}
 		}
 
@@ -190,9 +189,9 @@ public class EntityIronGolem extends EntityGolem {
 		byte b0 = this.datawatcher.getByte(16);
 
 		if (flag) {
-			this.datawatcher.watch(16, Byte.valueOf((byte) (b0 | 1)));
+			this.datawatcher.watch(16, (byte) (b0 | 1));
 		} else {
-			this.datawatcher.watch(16, Byte.valueOf((byte) (b0 & -2)));
+			this.datawatcher.watch(16, (byte) (b0 & -2));
 		}
 
 	}

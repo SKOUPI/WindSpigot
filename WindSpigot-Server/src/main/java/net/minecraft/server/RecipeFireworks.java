@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.common.collect.Lists;
 
@@ -10,7 +11,7 @@ public class RecipeFireworks extends ShapelessRecipes implements IRecipe { // Cr
 
 	// CraftBukkit start - Delegate to new parent class with bogus info
 	public RecipeFireworks() {
-		super(new ItemStack(Items.FIREWORKS, 0, 0), java.util.Arrays.asList(new ItemStack(Items.GUNPOWDER, 0, 5)));
+		super(new ItemStack(Items.FIREWORKS, 0, 0), List.of(new ItemStack(Items.GUNPOWDER, 0, 5)));
 	}
 	// CraftBukkit end
 
@@ -89,14 +90,14 @@ public class RecipeFireworks extends ShapelessRecipes implements IRecipe { // Cr
 				nbttagcompound = new NBTTagCompound();
 				nbttagcompound1 = new NBTTagCompound();
 				byte b0 = 0;
-				ArrayList arraylist = Lists.newArrayList();
+				ArrayList<Integer> arraylist = Lists.newArrayList();
 
 				for (int i2 = 0; i2 < inventorycrafting.getSize(); ++i2) {
 					ItemStack itemstack2 = inventorycrafting.getItem(i2);
 
 					if (itemstack2 != null) {
 						if (itemstack2.getItem() == Items.DYE) {
-							arraylist.add(Integer.valueOf(ItemDye.a[itemstack2.getData() & 15]));
+							arraylist.add(ItemDye.a[itemstack2.getData() & 15]);
 						} else if (itemstack2.getItem() == Items.GLOWSTONE_DUST) {
 							nbttagcompound1.setBoolean("Flicker", true);
 						} else if (itemstack2.getItem() == Items.DIAMOND) {
@@ -116,7 +117,7 @@ public class RecipeFireworks extends ShapelessRecipes implements IRecipe { // Cr
 				int[] aint = new int[arraylist.size()];
 
 				for (int j2 = 0; j2 < aint.length; ++j2) {
-					aint[j2] = ((Integer) arraylist.get(j2)).intValue();
+					aint[j2] = arraylist.get(j2);
 				}
 
 				nbttagcompound1.setIntArray("Colors", aint);
@@ -125,14 +126,14 @@ public class RecipeFireworks extends ShapelessRecipes implements IRecipe { // Cr
 				this.a.setTag(nbttagcompound);
 				return true;
 			} else if (j == 0 && i == 0 && l == 1 && k > 0 && k == i1) {
-				ArrayList arraylist1 = Lists.newArrayList();
+				ArrayList<Integer> arraylist1 = Lists.newArrayList();
 
 				for (int k2 = 0; k2 < inventorycrafting.getSize(); ++k2) {
 					ItemStack itemstack3 = inventorycrafting.getItem(k2);
 
 					if (itemstack3 != null) {
 						if (itemstack3.getItem() == Items.DYE) {
-							arraylist1.add(Integer.valueOf(ItemDye.a[itemstack3.getData() & 15]));
+							arraylist1.add(ItemDye.a[itemstack3.getData() & 15]);
 						} else if (itemstack3.getItem() == Items.FIREWORK_CHARGE) {
 							this.a = itemstack3.cloneItemStack();
 							this.a.count = 1;
@@ -143,7 +144,7 @@ public class RecipeFireworks extends ShapelessRecipes implements IRecipe { // Cr
 				int[] aint1 = new int[arraylist1.size()];
 
 				for (int l2 = 0; l2 < aint1.length; ++l2) {
-					aint1[l2] = ((Integer) arraylist1.get(l2)).intValue();
+					aint1[l2] = (arraylist1.get(l2));
 				}
 
 				if (this.a != null && this.a.hasTag()) {

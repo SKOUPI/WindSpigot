@@ -3,7 +3,7 @@ package net.minecraft.server;
 public class RemoteControlCommandListener implements ICommandListener {
 
 	private static final RemoteControlCommandListener instance = new RemoteControlCommandListener();
-	private StringBuffer b = new StringBuffer();
+	private final StringBuffer b = new StringBuffer();
 
 	public RemoteControlCommandListener() {
 	}

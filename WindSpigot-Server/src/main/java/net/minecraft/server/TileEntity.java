@@ -5,7 +5,6 @@ import java.util.concurrent.Callable;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.bukkit.Material;
 import org.bukkit.inventory.InventoryHolder; // CraftBukkit
 
 import com.google.common.collect.Maps;
@@ -197,7 +196,7 @@ public abstract class TileEntity {
 					if (i < 0) {
 						return "Unknown? (Got " + i + ")";
 					} else {
-						String s = String.format("%4s", new Object[] { Integer.toBinaryString(i) }).replace(" ", "0");
+						String s = String.format("%4s", Integer.toBinaryString(i)).replace(" ", "0");
 
 						return String.format("%1$d / 0x%1$X / 0b%2$s", i, s);
 					}

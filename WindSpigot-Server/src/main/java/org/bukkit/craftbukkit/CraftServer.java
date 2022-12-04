@@ -170,7 +170,7 @@ import xyz.sculas.nacho.malware.AntiMalware;
 
 public final class CraftServer implements Server {
     private static final Player[] EMPTY_PLAYER_ARRAY = new Player[0];
-    private String serverName = "WindSpigot";
+    private String serverName = "SK";
     private final String serverVersion;
     private final String bukkitVersion = Versioning.getBukkitVersion();
     private final Logger logger = Logger.getLogger("Minecraft");

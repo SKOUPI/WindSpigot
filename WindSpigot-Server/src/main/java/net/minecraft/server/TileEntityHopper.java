@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -272,14 +273,11 @@ public class TileEntityHopper extends TileEntityContainer implements IHopper, IU
 
 	private boolean q() {
 		ItemStack[] aitemstack = this.items;
-		int i = aitemstack.length;
 
-		for (int j = 0; j < i; ++j) {
-			ItemStack itemstack = aitemstack[j];
-
-			if (itemstack == null || itemstack.count != itemstack.getMaxStackSize()) {
+		for (ItemStack itemstack : aitemstack)
+		{
+			if (itemstack == null || itemstack.count != itemstack.getMaxStackSize())
 				return false;
-			}
 		}
 
 		return true;
@@ -364,10 +362,12 @@ public class TileEntityHopper extends TileEntityContainer implements IHopper, IU
 			IWorldInventory iworldinventory = (IWorldInventory) iinventory;
 			int[] aint = iworldinventory.getSlotsForFace(enumdirection);
 
-			for (int i = 0; i < aint.length; ++i) {
-				ItemStack itemstack = iworldinventory.getItem(aint[i]);
+			for (int j : aint)
+			{
+				ItemStack itemstack = iworldinventory.getItem(j);
 
-				if (itemstack == null || itemstack.count != itemstack.getMaxStackSize()) {
+				if (itemstack == null || itemstack.count != itemstack.getMaxStackSize())
+				{
 					return false;
 				}
 			}
@@ -391,8 +391,10 @@ public class TileEntityHopper extends TileEntityContainer implements IHopper, IU
 			IWorldInventory iworldinventory = (IWorldInventory) iinventory;
 			int[] aint = iworldinventory.getSlotsForFace(enumdirection);
 
-			for (int i = 0; i < aint.length; ++i) {
-				if (iworldinventory.getItem(aint[i]) != null) {
+			for (int j : aint)
+			{
+				if (iworldinventory.getItem(j) != null)
+				{
 					return false;
 				}
 			}
@@ -459,12 +461,11 @@ public class TileEntityHopper extends TileEntityContainer implements IHopper, IU
 																														// in
 																														// 'pull
 																														// mode'
-			Iterator iterator = a(ihopper.getWorld(), ihopper.A(), ihopper.B() + 1.0D, ihopper.C()).iterator();
 
-			while (iterator.hasNext()) {
-				EntityItem entityitem = (EntityItem) iterator.next();
-
-				if (a(ihopper, entityitem)) {
+			for (EntityItem entityitem : a(ihopper.getWorld(), ihopper.A(), ihopper.B() + 1.0D, ihopper.C()))
+			{
+				if (a(ihopper, entityitem))
+				{
 					return true;
 				}
 			}
@@ -773,9 +774,6 @@ public class TileEntityHopper extends TileEntityContainer implements IHopper, IU
 
 	@Override
 	public void l() {
-		for (int i = 0; i < this.items.length; ++i) {
-			this.items[i] = null;
-		}
-
+		Arrays.fill(this.items, null);
 	}
 }

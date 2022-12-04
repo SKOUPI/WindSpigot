@@ -9,7 +9,6 @@ public class AsyncExplosions {
 	public static void initExecutor(int size) {
 		EXECUTOR = (ThreadPoolExecutor) Executors.newFixedThreadPool(size);
 	}
-
 	public static void stopExecutor() {
 		if (EXECUTOR != null) {
 			EXECUTOR.shutdown();

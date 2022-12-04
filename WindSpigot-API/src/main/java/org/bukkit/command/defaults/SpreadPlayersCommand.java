@@ -188,11 +188,10 @@ public class SpreadPlayersCommand extends VanillaCommand {
 			}
 
 			if (!flag) {
-				Location[] locs = locations;
 				int i1 = locations.length;
 
 				for (j = 0; j < i1; ++j) {
-					loc1 = locs[j];
+					loc1 = locations[j];
 					if (world.getHighestBlockYAt(loc1) == 0) {
 						double x = xRangeMin >= xRangeMax ? xRangeMin
 								: random.nextDouble() * (xRangeMax - xRangeMin) + xRangeMin;
@@ -219,30 +218,33 @@ public class SpreadPlayersCommand extends VanillaCommand {
 		int i = 0;
 		Map<Team, Location> hashmap = Maps.newHashMap();
 
-		for (int j = 0; j < list.size(); ++j) {
-			Player player = list.get(j);
+		for (Player player : list)
+		{
 			Location location;
 
-			if (teams) {
+			if (teams)
+			{
 				Team team = player.getScoreboard().getPlayerTeam(player);
 
-				if (!hashmap.containsKey(team)) {
+				if (!hashmap.containsKey(team))
+				{
 					hashmap.put(team, locations[i++]);
 				}
 
 				location = hashmap.get(team);
-			} else {
+			} else
+			{
 				location = locations[i++];
 			}
 
-			player.teleport(new Location(world, Math.floor(location.getX()) + 0.5D,
-					world.getHighestBlockYAt((int) location.getX(), (int) location.getZ()),
-					Math.floor(location.getZ()) + 0.5D));
+			player.teleport(new Location(world, Math.floor(location.getX()) + 0.5D, world.getHighestBlockYAt((int) location.getX(), (int) location.getZ()), Math.floor(location.getZ()) + 0.5D));
 			double value = Double.MAX_VALUE;
 
-			for (int k = 0; k < locations.length; ++k) {
-				if (location != locations[k]) {
-					double d = location.distanceSquared(locations[k]);
+			for (Location item : locations)
+			{
+				if (location != item)
+				{
+					double d = location.distanceSquared(item);
 					value = Math.min(d, value);
 				}
 			}
