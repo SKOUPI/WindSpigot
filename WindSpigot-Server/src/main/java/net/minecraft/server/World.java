@@ -1348,6 +1348,10 @@ public abstract class World implements IBlockAccess {
 
                 for (Entity entity1 : getEntities(entity, entity.getBoundingBox().grow(8, 8, 8))) {
                     if (entity1 instanceof EntityInsentient && entity1.getBukkitEntity().getType().equals(entity.getBukkitEntity().getType())) {
+                       // if (spawned.getEquipment() != null && spawned.getEquipment().length != 0) continue;
+                        if (spawned.isBaby() && !((EntityInsentient) entity1).isBaby()) continue;
+                        if (spawned.hasCustomName() || entity1.hasCustomName()) continue;
+
                         EntityInsentient entityIns = (EntityInsentient) entity1;
                         if (entityIns.getStackHolder().getStackAmount() < 250) {
                             nearbyEntitiesInsentient.add((EntityInsentient) entity1);
