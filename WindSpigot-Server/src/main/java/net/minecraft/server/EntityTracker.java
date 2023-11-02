@@ -1,14 +1,17 @@
 package net.minecraft.server;
 
 import java.util.List;
+import java.util.Set;
+
 import com.google.common.collect.Lists;
 
 import ga.windpvp.windspigot.commons.ConcurrentIntHashMap;
 import ga.windpvp.windspigot.config.WindSpigotConfig;
+import me.rastrian.dev.utils.IndexedLinkedHashSet;
 
 public class EntityTracker {
 
-	public List<EntityTrackerEntry> c = Lists.newCopyOnWriteArrayList();
+	public Set<EntityTrackerEntry> c = new IndexedLinkedHashSet<>();
 	
 	public IntHashMap<EntityTrackerEntry> trackedEntities = new ConcurrentIntHashMap<>(); // WindSpigot
 
@@ -145,11 +148,11 @@ public class EntityTracker {
 		for (EntityTrackerEntry entry : c) {
 			entry.update();
 		}
-		// WindSpigot start
-		for (EntityPlayer player : MinecraftServer.getServer().getPlayerList().players) {
-			player.playerConnection.sendQueuedPackets();
-		}
-		// WindSpigot end
+	    // WindSpigot start
+        for (EntityPlayer player : MinecraftServer.getServer().getPlayerList().players) {
+            player.playerConnection.sendQueuedPackets();
+        }
+        // WindSpigot end
 	}
 
 	public void a(EntityPlayer entityplayer) {

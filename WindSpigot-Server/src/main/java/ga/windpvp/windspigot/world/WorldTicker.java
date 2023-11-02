@@ -19,7 +19,7 @@ public class WorldTicker implements Runnable {
 	public final WorldServer worldserver;
 	private final ResettableLatch latch = new ResettableLatch(WindSpigotConfig.trackingThreads);
 	private final Runnable cachedUpdateTrackerTask;
-	private volatile boolean hasTracked = false;
+	protected volatile boolean hasTracked = false;
 	
 	public WorldTicker(WorldServer worldServer) {
 		this.worldserver = worldServer;
@@ -31,7 +31,7 @@ public class WorldTicker implements Runnable {
 	
 	@Override
 	public void run() {
-		run(!WindSpigotConfig.disableTracking);
+		run((!WindSpigotConfig.disableTracking && WindSpigotConfig.fullAsyncTracking));
 	}
 
 	// This is mostly copied code from world ticking
@@ -41,13 +41,6 @@ public class WorldTicker implements Runnable {
 		CrashReport crashreport;
 
 		try {
-			if (handleTrackerAsync && hasTracked) {
-				latch.waitTillZero();
-				latch.reset();
-				for (EntityPlayer player : MinecraftServer.getServer().getPlayerList().players) {
-					player.playerConnection.sendQueuedPackets();
-				}
-			}
 			worldserver.timings.doTick.startTiming(); // Spigot
 			worldserver.doTick();
 			worldserver.timings.doTick.stopTiming(); // Spigot
@@ -79,10 +72,10 @@ public class WorldTicker implements Runnable {
 			throw new ReportedException(crashreport);
 		}
 
+        worldserver.timings.tracker.startTiming(); // Spigot
 		if (handleTrackerAsync) {
 			AsyncUtil.run(cachedUpdateTrackerTask, AsyncEntityTracker.getExecutor());
 		} else {
-			worldserver.timings.tracker.startTiming(); // Spigot
 
 			// this.methodProfiler.b();
 			// this.methodProfiler.a("tracker");

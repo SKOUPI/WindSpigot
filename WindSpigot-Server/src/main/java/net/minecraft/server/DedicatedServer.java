@@ -21,24 +21,26 @@ import org.bukkit.event.server.ServerCommandEvent;
 
 import co.aikar.timings.SpigotTimings; // Spigot
 import ga.windpvp.windspigot.WindSpigot;
+import ga.windpvp.windspigot.commons.IPUtils;
 import ga.windpvp.windspigot.config.WindSpigotConfig;
 import ga.windpvp.windspigot.knockback.KnockbackConfig;
 import me.elier.nachospigot.config.NachoConfig;
 
 public class DedicatedServer extends MinecraftServer implements IMinecraftServer {
 
-    private static final Logger LOGGER = LogManager.getLogger();
-    private final java.util.Queue<ServerCommand> l = new java.util.concurrent.ConcurrentLinkedQueue<>(); // Paper - use
-    // a proper
-    // queue
-    private RemoteStatusListener m;
-    private RemoteControlListener n;
-    public PropertyManager propertyManager;
-    private boolean generateStructures;
-    private WorldSettings.EnumGamemode r;
-    private boolean s;
+	private static final Logger LOGGER = LogManager.getLogger();
+	private final java.util.Queue<ServerCommand> l = new java.util.concurrent.ConcurrentLinkedQueue<>(); // Paper - use
+																											// a proper
+																											// queue
+	private RemoteStatusListener m;
+	private RemoteControlListener n;
+	public PropertyManager propertyManager;
+	private EULA p;
+	private boolean generateStructures;
+	private WorldSettings.EnumGamemode r;
+	private boolean s;
 
-    // CraftBukkit start - Signature changed
+	// CraftBukkit start - Signature changed
     public DedicatedServer(joptsimple.OptionSet options, Thread thread1) { // WindSpigot - backport modern tick loop
         super(options, Proxy.NO_PROXY, DedicatedServer.a, thread1);
         // CraftBukkit end
@@ -686,40 +688,40 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         // CraftBukkit end
     }
 
-    // CraftBukkit start - fire RemoteServerCommandEvent
-    @Override
-    public String executeRemoteCommand(final String s) {
-        Waitable<String> waitable = new Waitable<String>() {
-            @Override
-            protected String evaluate() {
-                RemoteControlCommandListener.getInstance().i();
-                // Event changes start
-                RemoteServerCommandEvent event = new RemoteServerCommandEvent(remoteConsole, s);
-                server.getPluginManager().callEvent(event);
-                if (event.isCancelled()) {
-                    return "";
-                }
-                // Event change end
-                ServerCommand serverCommand = new ServerCommand(event.getCommand(),
-                        RemoteControlCommandListener.getInstance());
-                server.dispatchServerCommand(remoteConsole, serverCommand);
-                return RemoteControlCommandListener.getInstance().j();
-            }
-        };
-        processQueue.add(waitable);
-        try {
-            return waitable.get();
-        } catch (java.util.concurrent.ExecutionException e) {
-            throw new RuntimeException("Exception processing rcon command " + s, e.getCause());
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt(); // Maintain interrupted state
-            throw new RuntimeException("Interrupted processing rcon command " + s, e);
-        }
-        // CraftBukkit end
-    }
+	// CraftBukkit start - fire RemoteServerCommandEvent
+	@Override
+	public String executeRemoteCommand(final String s) {
+		Waitable<String> waitable = new Waitable<String>() {
+			@Override
+			protected String evaluate() {
+				RemoteControlCommandListener.getInstance().i();
+				// Event changes start
+				RemoteServerCommandEvent event = new RemoteServerCommandEvent(remoteConsole, s);
+				server.getPluginManager().callEvent(event);
+				if (event.isCancelled()) {
+					return "";
+				}
+				// Event change end
+				ServerCommand serverCommand = new ServerCommand(event.getCommand(),
+						RemoteControlCommandListener.getInstance());
+				server.dispatchServerCommand(remoteConsole, serverCommand);
+				return RemoteControlCommandListener.getInstance().j();
+			}
+		};
+		processQueue.add(waitable);
+		try {
+			return waitable.get();
+		} catch (java.util.concurrent.ExecutionException e) {
+			throw new RuntimeException("Exception processing rcon command " + s, e.getCause());
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt(); // Maintain interrupted state
+			throw new RuntimeException("Interrupted processing rcon command " + s, e);
+		}
+		// CraftBukkit end
+	}
 
-    @Override
-    public PlayerList getPlayerList() {
-        return this.aP();
-    }
+	@Override
+	public PlayerList getPlayerList() {
+		return this.aP();
+	}
 }
